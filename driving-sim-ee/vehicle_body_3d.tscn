@@ -278,3 +278,8 @@ shape = SubResource("BoxShape3D_x31a8")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00065431, 0.4977293, 0.73411417)
 shape = SubResource("BoxShape3D_x31a8")
+
+[node name="CamArm" type="SpringArm3D" parent="."]
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CamArm"]
