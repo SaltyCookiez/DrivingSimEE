@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=4 uid="uid://ljmjfekwkjue"]
+[gd_scene load_steps=20 format=4 uid="uid://ljmjfekwkjue"]
 
+[ext_resource type="Script" uid="uid://b32kddlmwthc6" path="res://Car.gd" id="1_3wmsh"]
 [ext_resource type="Texture2D" uid="uid://bqt60ss3sosok" path="res://Assets/colormap.png" id="1_x31a8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_102br"]
@@ -198,6 +199,7 @@ size = Vector3(1.0967407, 0.57401276, 1.094986)
 
 [node name="VehicleBody3D" type="VehicleBody3D"]
 mass = 240.0
+script = ExtResource("1_3wmsh")
 
 [node name="body" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -0.025)
