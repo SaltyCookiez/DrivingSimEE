@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=4 uid="uid://ljmjfekwkjue"]
+[gd_scene load_steps=21 format=4 uid="uid://ljmjfekwkjue"]
 
 [ext_resource type="Script" uid="uid://b32kddlmwthc6" path="res://Car.gd" id="1_3wmsh"]
 [ext_resource type="Texture2D" uid="uid://bqt60ss3sosok" path="res://Assets/colormap.png" id="1_x31a8"]
+[ext_resource type="Script" uid="uid://ck3cysc1277vn" path="res://CamArm.gd" id="3_d41w2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_102br"]
 resource_name = "colormap"
@@ -283,5 +284,6 @@ shape = SubResource("BoxShape3D_x31a8")
 
 [node name="CamArm" type="SpringArm3D" parent="."]
 spring_length = 5.0
+script = ExtResource("3_d41w2")
 
 [node name="Camera3D" type="Camera3D" parent="CamArm"]
