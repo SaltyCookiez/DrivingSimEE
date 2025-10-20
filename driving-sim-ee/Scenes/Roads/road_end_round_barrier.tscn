@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfgox0uq3vf30"]
+
+[ext_resource type="PackedScene" uid="uid://2b661i7wb7wa" path="res://Assets/road-end-round-barrier.fbx" id="1_xfw6t"]
+
+[node name="road-end-round-barrier" instance=ExtResource("1_xfw6t")]

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfc3thh3sbv0i"]
+
+[ext_resource type="PackedScene" uid="uid://c573tb8o3ax25" path="res://Assets/road-roundabout.fbx" id="1_75dah"]
+
+[node name="road-roundabout" instance=ExtResource("1_75dah")]

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfgou1t0swlob"]
+
+[ext_resource type="PackedScene" uid="uid://dj5y7jo46m4qc" path="res://Assets/light-curved.fbx" id="1_gkcve"]
+
+[node name="light-curved" instance=ExtResource("1_gkcve")]

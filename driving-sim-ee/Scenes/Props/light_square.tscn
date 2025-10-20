@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://du34mnbbhcemg"]
+
+[ext_resource type="PackedScene" uid="uid://de4570hyws0wt" path="res://Assets/light-square.fbx" id="1_fpx78"]
+
+[node name="light-square" instance=ExtResource("1_fpx78")]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://crf1ck44yata7"]
+
+[ext_resource type="PackedScene" uid="uid://b8k1y68uv5qkl" path="res://Assets/road-straight.fbx" id="1_48uqm"]
+[ext_resource type="Texture2D" uid="uid://bqt60ss3sosok" path="res://Assets/colormap.png" id="2_h1cro"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hypnv"]
+albedo_texture = ExtResource("2_h1cro")
+
+[node name="road-straight" instance=ExtResource("1_48uqm")]
+
+[node name="road-straight" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_hypnv")

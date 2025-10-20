@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqq8jtsp2x4rd"]
+
+[ext_resource type="PackedScene" uid="uid://bdqcot1hqu7l3" path="res://Assets/road-straight-barrier.fbx" id="1_xhcio"]
+
+[node name="road-straight-barrier" instance=ExtResource("1_xhcio")]

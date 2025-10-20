@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqri10pxlbjt2"]
+
+[ext_resource type="PackedScene" uid="uid://dgyjla1wpx5jq" path="res://Assets/road-curve-intersection.fbx" id="1_38rx8"]
+
+[node name="road-curve-intersection" instance=ExtResource("1_38rx8")]

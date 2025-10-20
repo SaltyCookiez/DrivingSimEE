@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxj6la5v8vdrd"]
+
+[ext_resource type="PackedScene" uid="uid://dxvlclowigmvr" path="res://Assets/road-curve-barrier.fbx" id="1_1rh83"]
+
+[node name="road-curve-barrier" instance=ExtResource("1_1rh83")]

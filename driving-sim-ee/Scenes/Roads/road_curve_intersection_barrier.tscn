@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmc5u3dsdgj2o"]
+
+[ext_resource type="PackedScene" uid="uid://cticp8nep42nv" path="res://Assets/road-curve-intersection-barrier.fbx" id="1_tfik6"]
+
+[node name="road-curve-intersection-barrier" instance=ExtResource("1_tfik6")]

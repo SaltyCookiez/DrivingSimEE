@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0rovnid72la5"]
+
+[ext_resource type="PackedScene" uid="uid://b7nydhkwoajp5" path="res://Assets/road-crossroad-barrier.fbx" id="1_rk2t3"]
+
+[node name="road-crossroad-barrier" instance=ExtResource("1_rk2t3")]

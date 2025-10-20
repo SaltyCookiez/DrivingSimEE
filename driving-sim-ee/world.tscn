@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b26f48rah4b5y"]
+[gd_scene load_steps=10 format=3 uid="uid://b26f48rah4b5y"]
 
 [ext_resource type="PackedScene" uid="uid://ljmjfekwkjue" path="res://vehicle_body_3d.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://dmlbmhlwygd3i" path="res://HUD.gd" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="3_tlwt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -59,3 +60,9 @@ offset_right = 40.0
 offset_bottom = 42.0
 text = "\"D\""
 label_settings = SubResource("LabelSettings_tlwt5")
+
+[node name="road-straight" parent="." instance=ExtResource("3_tlwt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.694822, 0.5, 17.851988)
+
+[node name="road-straight2" parent="." instance=ExtResource("3_tlwt5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6948557, 0.50000024, 17.855104)
