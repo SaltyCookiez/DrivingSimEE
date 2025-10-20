@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b26f48rah4b5y"]
+[gd_scene load_steps=9 format=3 uid="uid://b26f48rah4b5y"]
 
 [ext_resource type="PackedScene" uid="uid://ljmjfekwkjue" path="res://vehicle_body_3d.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://dmlbmhlwygd3i" path="res://HUD.gd" id="2_fj7yv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -22,6 +23,10 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlwt5"]
 albedo_color = Color(0.20554963, 0.43506294, 0.08396856, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_fj7yv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tlwt5"]
+
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -38,3 +43,19 @@ material = SubResource("StandardMaterial3D_tlwt5")
 
 [node name="VehicleBody3D" parent="." instance=ExtResource("1_f3sb7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.520561, 0.5968126, 13.957907)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_fj7yv")
+
+[node name="SpeedLabel" type="Label" parent="HUD"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "\"0 km/h\""
+label_settings = SubResource("LabelSettings_fj7yv")
+
+[node name="GearLabel" type="Label" parent="HUD"]
+offset_top = 19.0
+offset_right = 40.0
+offset_bottom = 42.0
+text = "\"D\""
+label_settings = SubResource("LabelSettings_tlwt5")

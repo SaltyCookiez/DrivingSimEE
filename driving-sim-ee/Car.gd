@@ -1,5 +1,7 @@
 extends VehicleBody3D
 
+@onready var hud = get_node("/root/World/HUD")
+
 var max_RPM = 450
 var max_torque = 300
 var turn_speed = 3
@@ -8,6 +10,8 @@ var turn_amount = 0.3
 func _physics_process(delta):
 	$CamArm.position = position
 	
+	var gear = "D"
+	var speed = linear_velocity.length() * 3.6
 	var dir = Input.get_action_strength("Gas") - Input.get_action_strength("Brake")
 	var steering_dir = Input.get_action_strength("Left") - Input.get_action_strength("Right")
 	
@@ -19,6 +23,9 @@ func _physics_process(delta):
 	
 	engine_force = torque
 	steering = lerp(steering, steering_dir * turn_amount, turn_speed * delta)
+	
+	hud.update_speed(speed)
+	hud.update_gear(gear)
 	
 	if dir == 0:
 		brake = 2
