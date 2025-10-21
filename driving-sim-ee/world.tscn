@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b26f48rah4b5y"]
+[gd_scene load_steps=22 format=3 uid="uid://b26f48rah4b5y"]
 
 [ext_resource type="PackedScene" uid="uid://ljmjfekwkjue" path="res://vehicle_body_3d.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://dmlbmhlwygd3i" path="res://HUD.gd" id="2_fj7yv"]
@@ -6,6 +6,15 @@
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="4_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://dsltebha24nb3" path="res://Scenes/Roads/road_roundabout_barrier.tscn" id="5_gbfbk"]
 [ext_resource type="PackedScene" uid="uid://dfc3thh3sbv0i" path="res://Scenes/Roads/road_roundabout.tscn" id="6_ioo17"]
+[ext_resource type="PackedScene" uid="uid://dfdn727t1lgdv" path="res://Scenes/Roads/road_intersection_path.tscn" id="7_hiqwa"]
+[ext_resource type="PackedScene" uid="uid://bkyh74rw7ewl" path="res://Scenes/Roads/road_intersection_line.tscn" id="8_2u3nc"]
+[ext_resource type="PackedScene" uid="uid://cu7ga72t4qo1n" path="res://Scenes/Roads/road_intersection_barrier.tscn" id="9_udxuc"]
+[ext_resource type="PackedScene" uid="uid://b54c2mug3ij56" path="res://Scenes/Buildings/building_a.tscn" id="10_ikiii"]
+[ext_resource type="PackedScene" uid="uid://bcwn1ho5ogve1" path="res://Scenes/Buildings/building_skyscraper_a.tscn" id="11_cbp6q"]
+[ext_resource type="PackedScene" uid="uid://qhtnbpwe0de1" path="res://Scenes/Buildings/building_skyscraper_b.tscn" id="12_26xuy"]
+[ext_resource type="PackedScene" uid="uid://0hxv0ivpdhar" path="res://Scenes/Buildings/building_skyscraper_c.tscn" id="13_bc84e"]
+[ext_resource type="PackedScene" uid="uid://c4nvxrwqugnh5" path="res://Scenes/Buildings/building_skyscraper_d.tscn" id="14_wukud"]
+[ext_resource type="PackedScene" uid="uid://bdp7ogvs4dtkn" path="res://Scenes/Buildings/building_skyscraper_e.tscn" id="15_il2jm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -75,3 +84,33 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)
 
 [node name="road-roundabout" parent="." instance=ExtResource("6_ioo17")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)
+
+[node name="road-intersection-path" parent="." instance=ExtResource("7_hiqwa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0.5, 35)
+
+[node name="road-intersection-line" parent="." instance=ExtResource("8_2u3nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.5, 37)
+
+[node name="road-intersection-barrier" parent="." instance=ExtResource("9_udxuc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0.5, 35)
+
+[node name="road-intersection-barrier2" parent="." instance=ExtResource("9_udxuc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.5, 37)
+
+[node name="building-a" parent="." instance=ExtResource("10_ikiii")]
+transform = Transform3D(-0.0012217002, 0, -0.9999992, 0, 1, 0, 0.9999992, 0, -0.0012217002, -45.49887, 0.50000024, 38.61487)
+
+[node name="building-skyscraper-a" parent="." instance=ExtResource("11_cbp6q")]
+transform = Transform3D(0.0041363877, 0, -0.9999914, 0, 1, 0, 0.9999914, 0, 0.0041363877, -46.766045, 0.50000024, 37.48198)
+
+[node name="building-skyscraper-b" parent="." instance=ExtResource("12_26xuy")]
+transform = Transform3D(-0.04980855, 0, -0.9987588, 0, 1, 0, 0.9987588, 0, -0.04980855, -46.495792, 0.50000024, 35.277103)
+
+[node name="building-skyscraper-c" parent="." instance=ExtResource("13_bc84e")]
+transform = Transform3D(0.02546162, 0, -0.9996758, 0, 1, 0, 0.9996758, 0, 0.02546162, -45.35256, 0.50000024, 33.212635)
+
+[node name="building-skyscraper-d" parent="." instance=ExtResource("14_wukud")]
+transform = Transform3D(-0.99893385, 0, -0.04616494, 0, 1, 0, 0.04616494, 0, -0.99893385, -42.93521, 0.50000024, 32.395866)
+
+[node name="building-skyscraper-e" parent="." instance=ExtResource("15_il2jm")]
+transform = Transform3D(0.1548483, 0, -0.9879383, 0, 1, 0, 0.9879383, 0, 0.1548483, -47.648575, 0.5, 42.426277)
