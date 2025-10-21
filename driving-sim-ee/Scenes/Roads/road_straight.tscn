@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://crf1ck44yata7"]
 
 [ext_resource type="PackedScene" uid="uid://b8k1y68uv5qkl" path="res://Assets/road-straight.fbx" id="1_48uqm"]
-[ext_resource type="Texture2D" uid="uid://bqt60ss3sosok" path="res://Assets/colormap.png" id="2_h1cro"]
+[ext_resource type="Texture2D" uid="uid://cr5qlbu4vvn40" path="res://Assets/variation-a.png" id="2_h1cro"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hypnv"]
 albedo_texture = ExtResource("2_h1cro")

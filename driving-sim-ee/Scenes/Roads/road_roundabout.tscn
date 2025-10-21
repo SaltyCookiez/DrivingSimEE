@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfc3thh3sbv0i"]
+[gd_scene load_steps=4 format=3 uid="uid://dfc3thh3sbv0i"]
 
 [ext_resource type="PackedScene" uid="uid://c573tb8o3ax25" path="res://Assets/road-roundabout.fbx" id="1_75dah"]
+[ext_resource type="Texture2D" uid="uid://cr5qlbu4vvn40" path="res://Assets/variation-a.png" id="2_6fi32"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6rytc"]
+albedo_texture = ExtResource("2_6fi32")
 
 [node name="road-roundabout" instance=ExtResource("1_75dah")]
+
+[node name="road-roundabout" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_6rytc")

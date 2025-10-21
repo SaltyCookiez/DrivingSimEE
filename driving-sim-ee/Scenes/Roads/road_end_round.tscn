@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyeb8ds3muulj"]
+[gd_scene load_steps=4 format=3 uid="uid://cyeb8ds3muulj"]
 
 [ext_resource type="PackedScene" uid="uid://dnrboonf8xb1k" path="res://Assets/road-end-round.fbx" id="1_r1mr3"]
+[ext_resource type="Texture2D" uid="uid://cr5qlbu4vvn40" path="res://Assets/variation-a.png" id="2_x1ty2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g8oa"]
+albedo_texture = ExtResource("2_x1ty2")
 
 [node name="road-end-round" instance=ExtResource("1_r1mr3")]
+
+[node name="road-end-round" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_0g8oa")

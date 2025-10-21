@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxj6la5v8vdrd"]
+[gd_scene load_steps=4 format=3 uid="uid://cxj6la5v8vdrd"]
 
 [ext_resource type="PackedScene" uid="uid://dxvlclowigmvr" path="res://Assets/road-curve-barrier.fbx" id="1_1rh83"]
+[ext_resource type="Texture2D" uid="uid://cr5qlbu4vvn40" path="res://Assets/variation-a.png" id="2_6dkg5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ffdiy"]
+albedo_texture = ExtResource("2_6dkg5")
 
 [node name="road-curve-barrier" instance=ExtResource("1_1rh83")]
+
+[node name="road-curve-barrier" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ffdiy")

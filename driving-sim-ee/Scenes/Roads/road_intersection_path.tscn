@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfdn727t1lgdv"]
+[gd_scene load_steps=4 format=3 uid="uid://dfdn727t1lgdv"]
 
 [ext_resource type="PackedScene" uid="uid://cefxyanjcdrm3" path="res://Assets/road-intersection-path.fbx" id="1_4l2ws"]
+[ext_resource type="Texture2D" uid="uid://cr5qlbu4vvn40" path="res://Assets/variation-a.png" id="2_o85of"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_483qg"]
+albedo_texture = ExtResource("2_o85of")
 
 [node name="road-intersection-path" instance=ExtResource("1_4l2ws")]
+
+[node name="road-intersection-path" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_483qg")

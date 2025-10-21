@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4jo5oc8mjn2t"]
+[gd_scene load_steps=4 format=3 uid="uid://b4jo5oc8mjn2t"]
 
 [ext_resource type="PackedScene" uid="uid://dihbcclwbfwws" path="res://Assets/road-crossroad-line.fbx" id="1_0rp32"]
+[ext_resource type="Texture2D" uid="uid://cr5qlbu4vvn40" path="res://Assets/variation-a.png" id="2_13v7s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hn8xl"]
+albedo_texture = ExtResource("2_13v7s")
 
 [node name="road-crossroad-line" instance=ExtResource("1_0rp32")]
+
+[node name="road-crossroad-line" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_hn8xl")

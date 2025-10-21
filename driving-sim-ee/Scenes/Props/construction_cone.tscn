@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bncmuocu4cktn"]
+[gd_scene load_steps=4 format=3 uid="uid://bncmuocu4cktn"]
 
 [ext_resource type="PackedScene" uid="uid://bsco34txvle32" path="res://Assets/construction-cone.fbx" id="1_acbv1"]
+[ext_resource type="Texture2D" uid="uid://cr5qlbu4vvn40" path="res://Assets/variation-a.png" id="2_nkhbd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o53wr"]
+albedo_texture = ExtResource("2_nkhbd")
 
 [node name="construction-cone" instance=ExtResource("1_acbv1")]
+
+[node name="construction-cone" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_o53wr")
