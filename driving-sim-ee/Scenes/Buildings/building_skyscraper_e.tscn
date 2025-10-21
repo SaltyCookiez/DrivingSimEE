@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdp7ogvs4dtkn"]
+
+[ext_resource type="PackedScene" uid="uid://cqu1txodcrql0" path="res://Assets/building-skyscraper-e.fbx" id="1_5mb50"]
+
+[node name="building-skyscraper-e" instance=ExtResource("1_5mb50")]

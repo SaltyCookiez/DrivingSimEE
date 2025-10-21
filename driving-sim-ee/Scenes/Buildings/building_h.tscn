@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgtlqhd5enlmj"]
+
+[ext_resource type="PackedScene" uid="uid://ci75bvgowrrrl" path="res://Assets/building-h.fbx" id="1_doedx"]
+
+[node name="building-h" instance=ExtResource("1_doedx")]
