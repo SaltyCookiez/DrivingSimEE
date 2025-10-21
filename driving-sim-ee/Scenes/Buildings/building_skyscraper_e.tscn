@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdp7ogvs4dtkn"]
+[gd_scene load_steps=4 format=3 uid="uid://bdp7ogvs4dtkn"]
 
 [ext_resource type="PackedScene" uid="uid://cqu1txodcrql0" path="res://Assets/building-skyscraper-e.fbx" id="1_5mb50"]
+[ext_resource type="Texture2D" uid="uid://cr0usfjgswknk" path="res://Assets/colormapbuilding.png" id="2_1cowb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0evyf"]
+albedo_texture = ExtResource("2_1cowb")
 
 [node name="building-skyscraper-e" instance=ExtResource("1_5mb50")]
+
+[node name="building-skyscraper-e" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_0evyf")

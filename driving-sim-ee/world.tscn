@@ -1,7 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://b26f48rah4b5y"]
+[gd_scene load_steps=13 format=3 uid="uid://b26f48rah4b5y"]
 
 [ext_resource type="PackedScene" uid="uid://ljmjfekwkjue" path="res://vehicle_body_3d.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://dmlbmhlwygd3i" path="res://HUD.gd" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://bqq8jtsp2x4rd" path="res://Scenes/Roads/road_straight_barrier.tscn" id="3_dwbse"]
+[ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="4_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://dsltebha24nb3" path="res://Scenes/Roads/road_roundabout_barrier.tscn" id="5_gbfbk"]
+[ext_resource type="PackedScene" uid="uid://dfc3thh3sbv0i" path="res://Scenes/Roads/road_roundabout.tscn" id="6_ioo17"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -59,3 +63,15 @@ offset_right = 40.0
 offset_bottom = 42.0
 text = "\"D\""
 label_settings = SubResource("LabelSettings_tlwt5")
+
+[node name="road-straight-barrier" parent="." instance=ExtResource("3_dwbse")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.5, 40)
+
+[node name="road-straight" parent="." instance=ExtResource("4_pkg7o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.5, 40)
+
+[node name="road-roundabout-barrier" parent="." instance=ExtResource("5_gbfbk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)
+
+[node name="road-roundabout" parent="." instance=ExtResource("6_ioo17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)

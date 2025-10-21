@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cekeeab8t6goy"]
+[gd_scene load_steps=4 format=3 uid="uid://cekeeab8t6goy"]
 
 [ext_resource type="PackedScene" uid="uid://c0yfsn62ls8jb" path="res://Assets/building-j.fbx" id="1_8swpj"]
+[ext_resource type="Texture2D" uid="uid://cr0usfjgswknk" path="res://Assets/colormapbuilding.png" id="2_qei6e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2s4tt"]
+albedo_texture = ExtResource("2_qei6e")
 
 [node name="building-j" instance=ExtResource("1_8swpj")]
+
+[node name="building-j" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2s4tt")
