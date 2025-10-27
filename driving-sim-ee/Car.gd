@@ -39,6 +39,31 @@ var debug_enabled = true
 # Main Process
 #
 
+func _apply_anti_roll_bar():
+	var anti_roll_strength = 8000.0
+
+	# Front suspension travel
+	var travel_fl = 1.0 - $wheel_front_left.get_suspension_travel() / $wheel_front_left.suspension_travel
+	var travel_fr = 1.0 - $wheel_front_right.get_suspension_travel() / $wheel_front_right.suspension_travel
+
+	# Back suspension travel
+	var travel_rl = 1.0 - $wheel_back_left.get_suspension_travel() / $wheel_back_left.suspension_travel
+	var travel_rr = 1.0 - $wheel_back_right.get_suspension_travel() / $wheel_back_right.suspension_travel
+
+	# Front anti-roll
+	var anti_roll_front = (travel_fl - travel_fr) * anti_roll_strength
+	if $wheel_front_left.is_in_contact():
+		apply_central_force($wheel_front_left.global_transform.basis.y * -anti_roll_front)
+	if $wheel_front_right.is_in_contact():
+		apply_central_force($wheel_front_right.global_transform.basis.y * anti_roll_front)
+
+	# Rear anti-roll
+	var anti_roll_rear = (travel_rl - travel_rr) * anti_roll_strength
+	if $wheel_back_left.is_in_contact():
+		apply_central_force($wheel_back_left.global_transform.basis.y * -anti_roll_rear)
+	if $wheel_back_right.is_in_contact():
+		apply_central_force($wheel_back_right.global_transform.basis.y * anti_roll_rear)
+
 func _physics_process(delta):
 	
 	# Sync camera position
@@ -55,11 +80,15 @@ func _physics_process(delta):
 	
 	# Calculate speed
 	var speed = linear_velocity.length() * 3.6
+	var steering_limit = clamp(1.0 - (speed / 120.0), 0.3, 1.0)
 	
 	# Compute wheel RPMs and average for engine
 	var wheel_rpm_left = abs($wheel_back_left.get_rpm())
 	var wheel_rpm_right = abs($wheel_back_right.get_rpm())
 	var wheel_rpm = (wheel_rpm_left + wheel_rpm_right) / 2.0
+	
+	var downforce = linear_velocity.length() * 2.5
+	apply_central_force(-transform.basis.y * downforce)
 	
 	# Update engine RPM based on wheel RPM
 	_update_engine_rpm(wheel_rpm, delta)
@@ -73,7 +102,7 @@ func _physics_process(delta):
 	var torque_output = _calculate_engine_force(engine_torque)
 	
 	engine_force = torque_output * acceleration_input
-	steering = lerp(steering, steering_dir * steering_sensitivity, steering_lerp_speed * delta)
+	steering = lerp(steering, steering_dir * steering_sensitivity * steering_limit, steering_lerp_speed * delta)
 	
 	# Basic braking logic
 	if acceleration_input == 0 and brake_input > 0:
@@ -81,12 +110,18 @@ func _physics_process(delta):
 	else:
 		brake = 0.0
 	
+	var downforce_factor = 10.0
+	apply_central_force(-transform.basis.y * linear_velocity.length() * downforce_factor)
+	
 	# Apply engine drag
 	_apply_engine_drag(delta)
 	
 	# Update HUD
 	hud.update_speed(speed)
 	hud.update_gear(_get_display_gear())
+	
+	# Apply anti roll
+	_apply_anti_roll_bar()
 	
 	# Debug
 	if debug_enabled:

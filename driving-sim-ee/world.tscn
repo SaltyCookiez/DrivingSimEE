@@ -56,6 +56,8 @@ material = SubResource("StandardMaterial3D_tlwt5")
 
 [node name="VehicleBody3D" parent="." instance=ExtResource("1_f3sb7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.520561, 0.5968126, 13.957907)
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.8, 0)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("2_fj7yv")
