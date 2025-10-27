@@ -35,10 +35,8 @@ var debug_enabled = true
 # Helper for camera sync
 @onready var cam_arm = $CamArm
 
-#
-# Main Process
-#
 
+# Anti-roll system
 func _apply_anti_roll_bar():
 	var anti_roll_strength = 8000.0
 
@@ -64,73 +62,101 @@ func _apply_anti_roll_bar():
 	if $wheel_back_right.is_in_contact():
 		apply_central_force($wheel_back_right.global_transform.basis.y * anti_roll_rear)
 
+
 func _physics_process(delta):
-	
-	# Sync camera position
+	# Camera follow
 	cam_arm.position = position
-	
-	# Get inputs
-	acceleration_input = Input.get_action_strength("Gas")
-	brake_input = Input.get_action_strength("Brake")
+
+	# Inputs
+	acceleration_input = Input.get_action_strength("Gas")   # W
+	brake_input = Input.get_action_strength("Brake")         # S
 	var steering_dir = Input.get_action_strength("Left") - Input.get_action_strength("Right")
-	
-	# Detect if reverse or neutral gear
+
+	# Manual gear mode switching
 	if Input.is_action_just_pressed("ui_page_up"):
 		_cycle_gear_mode()
-	
-	# Calculate speed
+
+	# Vehicle speed in km/h
 	var speed = linear_velocity.length() * 3.6
 	var steering_limit = clamp(1.0 - (speed / 120.0), 0.3, 1.0)
-	
-	# Compute wheel RPMs and average for engine
+
+	# Auto-switch to reverse or drive when stopped
+	if gear_mode == "D" and speed < 1.0 and brake_input > 0.5:
+		gear_mode = "R"
+	elif gear_mode == "R" and speed < 1.0 and acceleration_input > 0.5:
+		gear_mode = "D"
+
+	# Wheel data
 	var wheel_rpm_left = abs($wheel_back_left.get_rpm())
 	var wheel_rpm_right = abs($wheel_back_right.get_rpm())
 	var wheel_rpm = (wheel_rpm_left + wheel_rpm_right) / 2.0
-	
+
+	# Aerodynamic downforce
 	var downforce = linear_velocity.length() * 2.5
 	apply_central_force(-transform.basis.y * downforce)
-	
-	# Update engine RPM based on wheel RPM
+
+	# Engine and transmission
 	_update_engine_rpm(wheel_rpm, delta)
-	
-	# Automatic transmission shifting
 	if gear_mode == "D":
 		_handle_automatic_shifting()
-		
-	# Calculate torque and apply
+
 	engine_torque = _calculate_engine_torque(current_rpm)
 	var torque_output = _calculate_engine_force(engine_torque)
-	
-	engine_force = torque_output * acceleration_input
-	steering = lerp(steering, steering_dir * steering_sensitivity * steering_limit, steering_lerp_speed * delta)
-	
-	# Basic braking logic
-	if acceleration_input == 0 and brake_input > 0:
-		brake = brake_force * brake_input
+
+	# Engine force and braking behavior
+	if gear_mode == "D":
+		# Normal forward driving
+		engine_force = torque_output * acceleration_input
+
+		# Apply braking when S pressed
+		if acceleration_input == 0 and brake_input > 0:
+			brake = brake_force * brake_input
+		else:
+			brake = 0.0
+
+	elif gear_mode == "R":
+		# S = reverse throttle, W = forward brake
+		engine_force = -torque_output * brake_input
+
+		if brake_input == 0 and acceleration_input > 0:
+			# When holding W in reverse, apply braking torque
+			brake = brake_force * acceleration_input
+		else:
+			brake = 0.0
+
 	else:
+		engine_force = 0.0
 		brake = 0.0
-	
+
+	# Steering
+	steering = lerp(
+		steering,
+		steering_dir * steering_sensitivity * steering_limit,
+		steering_lerp_speed * delta
+	)
+
+	# Extra downforce for high-speed stability
 	var downforce_factor = 10.0
 	apply_central_force(-transform.basis.y * linear_velocity.length() * downforce_factor)
-	
-	# Apply engine drag
+
+	# Engine drag
 	_apply_engine_drag(delta)
-	
-	# Update HUD
-	hud.update_speed(speed)
+
+	# HUD updates (negative speed when reversing)
+	if gear_mode == "R":
+		hud.update_speed(-speed)
+	else:
+		hud.update_speed(speed)
 	hud.update_gear(_get_display_gear())
-	
-	# Apply anti roll
+
+	# Anti-roll bar
 	_apply_anti_roll_bar()
-	
-	# Debug
+
+	# Debug info
 	if debug_enabled:
 		_print_debug(speed)
 
-#
 # Engine and Transmission
-#
-
 func _calculate_engine_torque(rpm: float) -> float:
 	var mid_rpm = max_rpm * 0.55
 	var torque_factor = 1.0 - pow((rpm - mid_rpm) / (mid_rpm * 1.5), 2)
@@ -138,11 +164,13 @@ func _calculate_engine_torque(rpm: float) -> float:
 	var min_torque = 5.0
 	return base_torque * torque_factor + min_torque
 
+
 func _calculate_engine_force(torque: float) -> float:
 	var gear_ratio = gear_ratios[current_gear - 1] if current_gear > 0 else 0
 	var total_ratio = gear_ratio * final_drive_ratio
 	var wheel_torque = torque * total_ratio
 	return wheel_torque / 5.0
+
 
 func _update_engine_rpm(wheel_rpm: float, delta: float):
 	var rpm_scale = 80.0
@@ -161,7 +189,7 @@ func _update_engine_rpm(wheel_rpm: float, delta: float):
 		)
 	else:
 		current_rpm = float(idle_rpm)
-	
+
 
 func _handle_automatic_shifting():
 	if gear_mode != "D":
@@ -181,17 +209,13 @@ func _handle_automatic_shifting():
 		shift_timer = shift_delay
 
 
-
 func _apply_engine_drag(_delta: float):
-	# Applies a small deceleration when throttle is released
 	if acceleration_input == 0 and gear_mode == "D":
 		var drag = engine_drag * linear_velocity.length()
 		apply_central_force(-linear_velocity.normalized() * drag)
 
-#
-# Gear managment
-#
 
+# Gear management
 func _cycle_gear_mode():
 	match gear_mode:
 		"P":
@@ -203,16 +227,15 @@ func _cycle_gear_mode():
 		"D":
 			gear_mode = "P"
 
+
 func _get_display_gear() -> String:
 	if gear_mode == "D":
 		return "D" + str(current_gear)
 	else:
 		return gear_mode
 
-#
-# Debugging
-#
 
+# Debugging
 func _print_debug(speed):
 	print("-------------------------------")
 	print("Speed: ", snapped(speed, 0.1), " km/h")
