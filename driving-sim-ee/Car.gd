@@ -34,24 +34,54 @@ var debug_enabled = true
 @onready var cam_arm = $CamArm
 
 func _physics_process(delta):
-	$CamArm.position = position
 	
-	var gear = "D"
-	var speed = linear_velocity.length() * 3.6
-	var dir = Input.get_action_strength("Gas") - Input.get_action_strength("Brake")
+	# Sync camera position
+	cam_arm.position = position
+	
+	# Get inputs
+	acceleration_input = Input.get_action_strength("Gas")
+	brake_input = Input.get_action_strength("Brake")
 	var steering_dir = Input.get_action_strength("Left") - Input.get_action_strength("Right")
 	
-	var RPM_left = abs($wheel_back_left.get_rpm())
-	var RPM_right = abs($wheel_back_right.get_rpm())
-	var RPM = (RPM_left + RPM_right) / 2.0
+	# Detect if reverse or neutral gear
+	if Input.is_action_just_pressed("ui_page_up"):
+		_cycle_gear_mode()
 	
-	var torque = dir * max_torque * (1.0 - RPM / max_RPM)
+	# Calculate speed
+	var speed = linear_velocity.length() * 3.6
 	
-	engine_force = torque
-	steering = lerp(steering, steering_dir * turn_amount, turn_speed * delta)
+	# Compute wheel RPMs and average for engine
+	var wheel_rpm_left = abs($wheel_back_left.get_rpm())
+	var wheel_rpm_right = abs($wheel_back_right.get_rpm())
+	var wheel_rpm = (wheel_rpm_left + wheel_rpm_right) / 2.0
 	
+	# Update engine RPM based on wheel RPM
+	_update_engine_rpm(wheel_rpm, delta)
+	
+	# Automatic transmission shifting
+	if gear_mode == "D":
+		_handle_automatic_shifting()
+		
+	# Calculate torque and apply
+	engine_torque = _calculate_engine_torque(current_rpm)
+	var torque_output = _calculate_engine_force(engine_torque)
+	
+	engine_force = torque_output * acceleration_input
+	steering = lerp(steering, steering_dir * steering_sensitivity, steering_lerp_speed * delta)
+	
+	# Basic braking logic
+	if acceleration_input == 0 and brake_input > 0:
+		brake = brake_force * brake_input
+	else:
+		brake = 0.0
+	
+	# Apply engine drag
+	_apply_engine_drag(delta)
+	
+	# Update HUD
 	hud.update_speed(speed)
-	hud.update_gear(gear)
+	hud.update_gear(_get_display_gear())
 	
-	if dir == 0:
-		brake = 2
+	# Debug
+	if debug_enabled:
+		_print_debug(speed)
