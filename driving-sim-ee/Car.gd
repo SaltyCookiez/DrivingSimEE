@@ -33,6 +33,10 @@ var debug_enabled = true
 # Helper for camera sync
 @onready var cam_arm = $CamArm
 
+#
+# Main Process
+#
+
 func _physics_process(delta):
 	
 	# Sync camera position
@@ -85,3 +89,45 @@ func _physics_process(delta):
 	# Debug
 	if debug_enabled:
 		_print_debug(speed)
+
+#
+# Engine and Transmission
+#
+
+func _calculate_engine_torque(rpm: float) -> float:
+	# Simulate torque
+	var mid_rpm = max_rpm * 0.5
+	var torque_factor = 1.0 - pow((rpm - mid_rpm) / mid_rpm, 2)
+	torque_factor = clamp(torque_factor, 0.0, 1.0)
+	return base_torque * torque_factor
+
+func _calculate_engine_force(torque: float) -> float:
+	# Calculate wheel torque
+	var gear_ratio = gear_ratios[current_gear - 1] if current_gear > 0 else 0
+	var total_ratio = gear_ratio * final_drive_ratio
+	var wheel_torque = torque * total_ratio
+	return wheel_torque / 100.0 # Scale factor
+
+func _update_engine_rpm(wheel_rpm: float, delta: float):
+	if gear_mode == "N":
+		current_rpm = lerp(current_gear, idle_rpm, delta * 3)
+	elif gear_mode == "R":
+		current_rpm = idle_rpm + (wheel_rpm * 0.1)
+	elif gear_mode == "D":
+		var gear_ratio = gear_ratios[current_gear - 1]
+		var target_rpm = wheel_rpm * gear_ratio * final_drive_ratio
+		current_rpm = clamp(lerp(current_rpm, target_rpm, delta * 5), idle_rpm, max_rpm)
+	else:
+		current_rpm = idle_rpm
+
+func _handle_automatic_shifting():
+	if current_rpm > upshift_rpm and current_gear < max_gears:
+		current_gear += 1
+	elif current_rpm < downshift_rpm and current_gear > 1:
+		current_gear -= 1
+
+func _apply_engine_drag(delta: float):
+	# Applies a small deceleration when throttle is released
+	if acceleration_input == 0 and gear_mode == "D":
+		var drag = engine_drag * linear_velocity.length()
+		apply_central_force(-linear_velocity.normalized() * drag)
