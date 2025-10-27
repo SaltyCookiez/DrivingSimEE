@@ -2,10 +2,22 @@ extends VehicleBody3D
 
 @onready var hud = get_node("/root/World/HUD")
 
-var max_RPM = 450
-var max_torque = 300
-var turn_speed = 3
-var turn_amount = 0.3
+# Engine & Transmission
+var gear_ratios = [2.97, 2.07, 1.43, 1.00, 0.84, 0.56]
+var final_drive_ratio = 3.42
+var current_gear = 1
+var max_gears = 6
+
+var upshift_rpm = 4200
+var downshift_rpm = 1700
+
+var idle_rpm = 800
+var max_rpm = 1700
+var current_rpm = idle_rpm
+
+var engine_torque = 0.0
+var base_torque = 350.0
+var engine_drag = 0.015
 
 func _physics_process(delta):
 	$CamArm.position = position
