@@ -8,15 +8,17 @@ var final_drive_ratio = 3.42
 var current_gear = 1
 var max_gears = 6
 
-var upshift_rpm = 4200
-var downshift_rpm = 1700
+var upshift_rpm = 4000
+var downshift_rpm = 2000
+var shift_delay = 0.5
+var shift_timer = 0.0
 
 var idle_rpm = 800
-var max_rpm = 1700
+var max_rpm = 5000
 var current_rpm = idle_rpm
 
 var engine_torque = 0.0
-var base_torque = 350.0
+var base_torque = 500.0
 var engine_drag = 0.015
 
 # Driving Dynamics
@@ -95,38 +97,57 @@ func _physics_process(delta):
 #
 
 func _calculate_engine_torque(rpm: float) -> float:
-	# Simulate torque
-	var mid_rpm = max_rpm * 0.5
-	var torque_factor = 1.0 - pow((rpm - mid_rpm) / mid_rpm, 2)
+	var mid_rpm = max_rpm * 0.55
+	var torque_factor = 1.0 - pow((rpm - mid_rpm) / (mid_rpm * 1.5), 2)
 	torque_factor = clamp(torque_factor, 0.0, 1.0)
-	return base_torque * torque_factor
+	var min_torque = 5.0
+	return base_torque * torque_factor + min_torque
 
 func _calculate_engine_force(torque: float) -> float:
-	# Calculate wheel torque
 	var gear_ratio = gear_ratios[current_gear - 1] if current_gear > 0 else 0
 	var total_ratio = gear_ratio * final_drive_ratio
 	var wheel_torque = torque * total_ratio
-	return wheel_torque / 100.0 # Scale factor
+	return wheel_torque / 5.0
 
 func _update_engine_rpm(wheel_rpm: float, delta: float):
+	var rpm_scale = 80.0
+	
 	if gear_mode == "N":
-		current_rpm = lerp(current_gear, idle_rpm, delta * 3)
+		current_rpm = lerp(float(current_rpm), float(idle_rpm), delta * 3.0)
 	elif gear_mode == "R":
-		current_rpm = idle_rpm + (wheel_rpm * 0.1)
+		current_rpm = float(idle_rpm) + (wheel_rpm * rpm_scale * 0.1)
 	elif gear_mode == "D":
 		var gear_ratio = gear_ratios[current_gear - 1]
-		var target_rpm = wheel_rpm * gear_ratio * final_drive_ratio
-		current_rpm = clamp(lerp(current_rpm, target_rpm, delta * 5), idle_rpm, max_rpm)
+		var target_rpm: float = wheel_rpm * gear_ratio * final_drive_ratio * rpm_scale
+		current_rpm = clamp(
+			lerp(float(current_rpm), target_rpm, delta * 5.0),
+			float(idle_rpm),
+			float(max_rpm)
+		)
 	else:
-		current_rpm = idle_rpm
+		current_rpm = float(idle_rpm)
+	
 
 func _handle_automatic_shifting():
+	if gear_mode != "D":
+		return
+
+	if shift_timer > 0:
+		shift_timer -= get_physics_process_delta_time()
+		return
+
 	if current_rpm > upshift_rpm and current_gear < max_gears:
 		current_gear += 1
+		current_rpm *= 0.6
+		shift_timer = shift_delay
 	elif current_rpm < downshift_rpm and current_gear > 1:
 		current_gear -= 1
+		current_rpm = clamp(current_rpm * 1.3, idle_rpm, max_rpm)
+		shift_timer = shift_delay
 
-func _apply_engine_drag(delta: float):
+
+
+func _apply_engine_drag(_delta: float):
 	# Applies a small deceleration when throttle is released
 	if acceleration_input == 0 and gear_mode == "D":
 		var drag = engine_drag * linear_velocity.length()
