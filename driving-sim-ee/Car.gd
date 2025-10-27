@@ -152,3 +152,16 @@ func _get_display_gear() -> String:
 		return "D" + str(current_gear)
 	else:
 		return gear_mode
+
+#
+# Debugging
+#
+
+func _print_debug(speed):
+	print("-------------------------------")
+	print("Speed: ", snapped(speed, 0.1), " km/h")
+	print("Gear Mode: ", gear_mode)
+	print("Current Gear: ", current_gear)
+	print("RPM: ", int(current_rpm))
+	print("Torque: ", snapped(engine_torque, 0.1))
+	print("-------------------------------")
