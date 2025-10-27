@@ -19,6 +19,20 @@ var engine_torque = 0.0
 var base_torque = 350.0
 var engine_drag = 0.015
 
+# Driving Dynamics
+var steering_sensitivity = 0.35
+var steering_lerp_speed = 3.0
+var brake_force = 20.0
+var acceleration_input = 0.0
+var brake_input = 0.0
+
+# Misc
+var gear_mode = "D" # P, R, N, D
+var debug_enabled = true
+
+# Helper for camera sync
+@onready var cam_arm = $CamArm
+
 func _physics_process(delta):
 	$CamArm.position = position
 	
