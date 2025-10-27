@@ -131,3 +131,24 @@ func _apply_engine_drag(delta: float):
 	if acceleration_input == 0 and gear_mode == "D":
 		var drag = engine_drag * linear_velocity.length()
 		apply_central_force(-linear_velocity.normalized() * drag)
+
+#
+# Gear managment
+#
+
+func _cycle_gear_mode():
+	match gear_mode:
+		"P":
+			gear_mode = "R"
+		"R":
+			gear_mode = "N"
+		"N":
+			gear_mode = "D"
+		"D":
+			gear_mode = "P"
+
+func _get_display_gear() -> String:
+	if gear_mode == "D":
+		return "D" + str(current_gear)
+	else:
+		return gear_mode
