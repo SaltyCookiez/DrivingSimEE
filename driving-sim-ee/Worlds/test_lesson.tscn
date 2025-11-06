@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqjn0q0785ek3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocbuq"]
+
+[node name="TestLesson" type="Node3D"]
+
+[node name="Ground" type="CSGBox3D" parent="."]
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_ocbuq")

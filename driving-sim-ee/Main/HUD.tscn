@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bol72dmwhr2by"]
+
+[ext_resource type="Script" uid="uid://dmlbmhlwygd3i" path="res://HUD.gd" id="1_g6jb3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fj7yv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tlwt5"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_g6jb3")
+
+[node name="SpeedLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "\"0 km/h\""
+label_settings = SubResource("LabelSettings_fj7yv")
+
+[node name="GearLabel" type="Label" parent="."]
+offset_top = 19.0
+offset_right = 40.0
+offset_bottom = 42.0
+text = "\"D\""
+label_settings = SubResource("LabelSettings_tlwt5")

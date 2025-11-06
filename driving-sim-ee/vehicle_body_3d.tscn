@@ -198,7 +198,7 @@ albedo_texture = ExtResource("1_x31a8")
 [sub_resource type="BoxShape3D" id="BoxShape3D_x31a8"]
 size = Vector3(1.0967407, 0.53505325, 1.094986)
 
-[node name="VehicleBody3D" type="VehicleBody3D"]
+[node name="CarRoot" type="VehicleBody3D"]
 mass = 800.0
 script = ExtResource("1_3wmsh")
 
@@ -293,10 +293,11 @@ shape = SubResource("BoxShape3D_x31a8")
 debug_fill = false
 
 [node name="CamArm" type="SpringArm3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.99999654, 0)
 collision_mask = 0
 spring_length = 5.0
 script = ExtResource("3_d41w2")
 
 [node name="Camera3D" type="Camera3D" parent="CamArm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+current = true

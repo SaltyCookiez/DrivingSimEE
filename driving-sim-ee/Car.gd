@@ -1,6 +1,6 @@
 extends VehicleBody3D
 
-@onready var hud = get_node("/root/World/HUD")
+var hud = null
 
 # Engine & Transmission
 var gear_ratios = [3.2, 1.9, 1.3, 1.0, 0.85, 0.7]
@@ -35,6 +35,12 @@ var debug_enabled = true
 # Helper for camera sync
 @onready var cam_arm = $CamArm
 
+func set_hud(h):
+	hud = h
+	if hud:
+		print("HUD Connected to Car")
+	else:
+		print("HUD still null")
 
 # Anti-roll system
 func _apply_anti_roll_bar():
@@ -62,8 +68,14 @@ func _apply_anti_roll_bar():
 	if $wheel_back_right.is_in_contact():
 		apply_central_force($wheel_back_right.global_transform.basis.y * anti_roll_rear)
 
-
 func _physics_process(delta):
+	
+	var speed = linear_velocity.length() * 3.6
+	
+	if hud:
+		hud.update_speed(-speed if gear_mode == "R" else speed)
+		hud.update_gear(_get_display_gear())
+	
 	# Camera follow
 	cam_arm.position = position
 
@@ -77,7 +89,6 @@ func _physics_process(delta):
 		_cycle_gear_mode()
 
 	# Vehicle speed in km/h
-	var speed = linear_velocity.length() * 3.6
 	var steering_limit = clamp(1.0 - (speed / 120.0), 0.3, 1.0)
 
 	# Auto-switch to reverse or drive when stopped
@@ -136,19 +147,12 @@ func _physics_process(delta):
 	# Engine drag
 	_apply_engine_drag(delta)
 
-	# HUD updates (negative speed when reversing)
-	if gear_mode == "R":
-		hud.update_speed(-speed)
-	else:
-		hud.update_speed(speed)
-	hud.update_gear(_get_display_gear())
-
 	# Anti-roll bar
 	_apply_anti_roll_bar()
 
 	# Debug info
-	if debug_enabled:
-		_print_debug(speed)
+	#if debug_enabled:
+		#_print_debug(speed)
 
 
 # Engine and Transmission
@@ -247,11 +251,11 @@ func _get_display_gear() -> String:
 
 
 # Debugging
-func _print_debug(speed):
-	print("-------------------------------")
-	print("Speed: ", snapped(speed, 0.1), " km/h")
-	print("Gear Mode: ", gear_mode)
-	print("Current Gear: ", current_gear)
-	print("RPM: ", int(current_rpm))
-	print("Torque: ", snapped(engine_torque, 0.1))
-	print("-------------------------------")
+#func _print_debug(speed):
+	#print("-------------------------------")
+	#print("Speed: ", snapped(speed, 0.1), " km/h")
+	#print("Gear Mode: ", gear_mode)
+	#print("Current Gear: ", current_gear)
+	#print("RPM: ", int(current_rpm))
+	#print("Torque: ", snapped(engine_torque, 0.1))
+	#print("-------------------------------")

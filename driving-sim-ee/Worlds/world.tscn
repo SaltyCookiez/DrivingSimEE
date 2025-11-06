@@ -1,0 +1,99 @@
+[gd_scene load_steps=19 format=3 uid="uid://b26f48rah4b5y"]
+
+[ext_resource type="PackedScene" uid="uid://ljmjfekwkjue" path="res://vehicle_body_3d.tscn" id="2_xa4cx"]
+[ext_resource type="PackedScene" uid="uid://b54c2mug3ij56" path="res://Scenes/Buildings/building_a.tscn" id="3_yn4g4"]
+[ext_resource type="PackedScene" uid="uid://bcwn1ho5ogve1" path="res://Scenes/Buildings/building_skyscraper_a.tscn" id="4_i53fm"]
+[ext_resource type="PackedScene" uid="uid://qhtnbpwe0de1" path="res://Scenes/Buildings/building_skyscraper_b.tscn" id="5_5es2h"]
+[ext_resource type="PackedScene" uid="uid://0hxv0ivpdhar" path="res://Scenes/Buildings/building_skyscraper_c.tscn" id="6_uy40c"]
+[ext_resource type="PackedScene" uid="uid://c4nvxrwqugnh5" path="res://Scenes/Buildings/building_skyscraper_d.tscn" id="7_7586k"]
+[ext_resource type="PackedScene" uid="uid://bdp7ogvs4dtkn" path="res://Scenes/Buildings/building_skyscraper_e.tscn" id="8_higm1"]
+[ext_resource type="PackedScene" uid="uid://bqq8jtsp2x4rd" path="res://Scenes/Roads/road_straight_barrier.tscn" id="9_7a8ml"]
+[ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="10_hqv4u"]
+[ext_resource type="PackedScene" uid="uid://dsltebha24nb3" path="res://Scenes/Roads/road_roundabout_barrier.tscn" id="11_ofjda"]
+[ext_resource type="PackedScene" uid="uid://dfc3thh3sbv0i" path="res://Scenes/Roads/road_roundabout.tscn" id="12_h604q"]
+[ext_resource type="PackedScene" uid="uid://dfdn727t1lgdv" path="res://Scenes/Roads/road_intersection_path.tscn" id="13_23qnr"]
+[ext_resource type="PackedScene" uid="uid://bkyh74rw7ewl" path="res://Scenes/Roads/road_intersection_line.tscn" id="14_5pjig"]
+[ext_resource type="PackedScene" uid="uid://cu7ga72t4qo1n" path="res://Scenes/Roads/road_intersection_barrier.tscn" id="15_05mhv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gv5m4"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_f3sb7"]
+sky_material = SubResource("ProceduralSkyMaterial_gv5m4")
+
+[sub_resource type="Environment" id="Environment_fj7yv"]
+background_mode = 2
+sky = SubResource("Sky_f3sb7")
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlwt5"]
+albedo_color = Color(0.20554963, 0.43506294, 0.08396856, 1)
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fj7yv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(1000, 1, 1000)
+material = SubResource("StandardMaterial3D_tlwt5")
+
+[node name="CarRoot" parent="." instance=ExtResource("2_xa4cx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.80592, 0.5, 45.340374)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="building-a" parent="Environment" instance=ExtResource("3_yn4g4")]
+transform = Transform3D(-0.0012217002, 0, -0.9999992, 0, 1, 0, 0.9999992, 0, -0.0012217002, -45.49887, 0.50000024, 38.61487)
+
+[node name="building-skyscraper-a" parent="Environment" instance=ExtResource("4_i53fm")]
+transform = Transform3D(0.0041363877, 0, -0.9999914, 0, 1, 0, 0.9999914, 0, 0.0041363877, -46.766045, 0.50000024, 37.48198)
+
+[node name="building-skyscraper-b" parent="Environment" instance=ExtResource("5_5es2h")]
+transform = Transform3D(-0.04980855, 0, -0.9987588, 0, 1, 0, 0.9987588, 0, -0.04980855, -46.495792, 0.50000024, 35.277103)
+
+[node name="building-skyscraper-c" parent="Environment" instance=ExtResource("6_uy40c")]
+transform = Transform3D(0.02546162, 0, -0.9996758, 0, 1, 0, 0.9996758, 0, 0.02546162, -45.35256, 0.50000024, 33.212635)
+
+[node name="building-skyscraper-d" parent="Environment" instance=ExtResource("7_7586k")]
+transform = Transform3D(-0.99893385, 0, -0.04616494, 0, 1, 0, 0.04616494, 0, -0.99893385, -42.93521, 0.50000024, 32.395866)
+
+[node name="building-skyscraper-e" parent="Environment" instance=ExtResource("8_higm1")]
+transform = Transform3D(0.1548483, 0, -0.9879383, 0, 1, 0, 0.9879383, 0, 0.1548483, -47.648575, 0.5, 42.426277)
+
+[node name="Roads" type="Node3D" parent="."]
+
+[node name="road-straight-barrier" parent="Roads" instance=ExtResource("9_7a8ml")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.5, 40)
+
+[node name="road-straight" parent="Roads" instance=ExtResource("10_hqv4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.5, 40)
+
+[node name="road-roundabout-barrier" parent="Roads" instance=ExtResource("11_ofjda")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)
+
+[node name="road-roundabout" parent="Roads" instance=ExtResource("12_h604q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)
+
+[node name="road-intersection-path" parent="Roads" instance=ExtResource("13_23qnr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0.5, 35)
+
+[node name="road-intersection-line" parent="Roads" instance=ExtResource("14_5pjig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.5, 37)
+
+[node name="road-intersection-barrier" parent="Roads" instance=ExtResource("15_05mhv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0.5, 35)
+
+[node name="road-intersection-barrier2" parent="Roads" instance=ExtResource("15_05mhv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0.5, 37)
