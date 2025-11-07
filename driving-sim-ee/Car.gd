@@ -42,31 +42,40 @@ func set_hud(h):
 	else:
 		print("HUD still null")
 
-# Anti-roll system
+func get_compression(wheel: VehicleWheel3D) -> float:
+	return clamp(
+		1.0 - wheel.get_suspension_travel() / max(wheel.suspension_travel, 0.01),
+		0.0,
+		1.0
+	)
+
 func _apply_anti_roll_bar():
-	var anti_roll_strength = 8000.0
+	var k = 12000.0  # anti-roll force strength
 
-	# Front suspension travel
-	var travel_fl = 1.0 - $wheel_front_left.get_suspension_travel() / $wheel_front_left.suspension_travel
-	var travel_fr = 1.0 - $wheel_front_right.get_suspension_travel() / $wheel_front_right.suspension_travel
+	var wfl = $wheel_front_left
+	var wfr = $wheel_front_right
+	var wrl = $wheel_back_left
+	var wrr = $wheel_back_right
 
-	# Back suspension travel
-	var travel_rl = 1.0 - $wheel_back_left.get_suspension_travel() / $wheel_back_left.suspension_travel
-	var travel_rr = 1.0 - $wheel_back_right.get_suspension_travel() / $wheel_back_right.suspension_travel
+	var c_fl = get_compression(wfl)
+	var c_fr = get_compression(wfr)
+	var c_rl = get_compression(wrl)
+	var c_rr = get_compression(wrr)
 
-	# Front anti-roll
-	var anti_roll_front = (travel_fl - travel_fr) * anti_roll_strength
-	if $wheel_front_left.is_in_contact():
-		apply_central_force($wheel_front_left.global_transform.basis.y * -anti_roll_front)
-	if $wheel_front_right.is_in_contact():
-		apply_central_force($wheel_front_right.global_transform.basis.y * anti_roll_front)
+	# Front axle anti-roll force
+	var anti_roll_front = (c_fl - c_fr) * k
+	if wfl.is_in_contact():
+		apply_force(-global_transform.basis.y * anti_roll_front, wfl.global_transform.origin - global_transform.origin)
+	if wfr.is_in_contact():
+		apply_force(global_transform.basis.y * anti_roll_front, wfr.global_transform.origin - global_transform.origin)
 
-	# Rear anti-roll
-	var anti_roll_rear = (travel_rl - travel_rr) * anti_roll_strength
-	if $wheel_back_left.is_in_contact():
-		apply_central_force($wheel_back_left.global_transform.basis.y * -anti_roll_rear)
-	if $wheel_back_right.is_in_contact():
-		apply_central_force($wheel_back_right.global_transform.basis.y * anti_roll_rear)
+	# Rear axle anti-roll force
+	var anti_roll_rear = (c_rl - c_rr) * k
+	if wrl.is_in_contact():
+		apply_force(-global_transform.basis.y * anti_roll_rear, wrl.global_transform.origin - global_transform.origin)
+	if wrr.is_in_contact():
+		apply_force(global_transform.basis.y * anti_roll_rear, wrr.global_transform.origin - global_transform.origin)
+
 
 func _physics_process(delta):
 	

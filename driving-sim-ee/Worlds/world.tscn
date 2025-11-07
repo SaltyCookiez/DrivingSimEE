@@ -70,21 +70,21 @@ transform = Transform3D(0.02546162, 0, -0.9996758, 0, 1, 0, 0.9996758, 0, 0.0254
 transform = Transform3D(-0.99893385, 0, -0.04616494, 0, 1, 0, 0.04616494, 0, -0.99893385, -42.93521, 0.50000024, 32.395866)
 
 [node name="building-skyscraper-e" parent="Environment" instance=ExtResource("8_higm1")]
-transform = Transform3D(0.1548483, 0, -0.9879383, 0, 1, 0, 0.9879383, 0, 0.1548483, -47.648575, 0.5, 42.426277)
+transform = Transform3D(0.77424157, 0, -4.9396915, 0, 5, 0, 4.9396915, 0, 0.77424157, -56.102432, 0.5, 42.426277)
 
 [node name="Roads" type="Node3D" parent="."]
 
 [node name="road-straight-barrier" parent="Roads" instance=ExtResource("9_7a8ml")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.5, 40)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -34, 0.5, 52.687)
 
 [node name="road-straight" parent="Roads" instance=ExtResource("10_hqv4u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0.5, 40)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -34, 0.5, 52.687)
 
 [node name="road-roundabout-barrier" parent="Roads" instance=ExtResource("11_ofjda")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -44, 0.5, 52.687454)
 
 [node name="road-roundabout" parent="Roads" instance=ExtResource("12_h604q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44, 0.5, 40)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -44, 0.5, 52.687454)
 
 [node name="road-intersection-path" parent="Roads" instance=ExtResource("13_23qnr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.5, 0.5, 35)

@@ -199,7 +199,10 @@ albedo_texture = ExtResource("1_x31a8")
 size = Vector3(1.0967407, 0.53505325, 1.094986)
 
 [node name="CarRoot" type="VehicleBody3D"]
-mass = 800.0
+mass = 1200.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.5, 0)
+angular_damp = 0.5
 script = ExtResource("1_3wmsh")
 
 [node name="body" type="MeshInstance3D" parent="."]
@@ -212,13 +215,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ckb0e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.3, 0.80999994)
 use_as_traction = true
 use_as_steering = true
-wheel_roll_influence = 0.0
+wheel_roll_influence = 0.2
 wheel_radius = 0.32
-wheel_friction_slip = 2.5
-suspension_travel = 0.25
-suspension_stiffness = 30.0
-suspension_max_force = 8000.0
-damping_compression = 5.0
+wheel_friction_slip = 2.0
+suspension_stiffness = 35.0
+suspension_max_force = 15000.0
+damping_compression = 4.0
 damping_relaxation = 6.0
 
 [node name="wheel-front-left" type="MeshInstance3D" parent="wheel_front_left"]

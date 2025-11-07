@@ -9,7 +9,7 @@ func _on_sandbox_pressed():
 	get_parent().load_level("res://Worlds/world.tscn")
 
 func _on_test_lesson_pressed():
-	get_tree().load_level("res://Worlds/test_lesson.tscn")
+	get_parent().load_level("res://Worlds/test_lesson.tscn")
 
 func _on_quit_pressed():
 	get_tree().quit()
