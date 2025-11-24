@@ -26,3 +26,20 @@ func _body_exited(body: Node3D) -> void:
 	else:
 		print("Car ignored the stop sign and didn't stop")
 	car = null
+
+func _ready() -> void:
+	body_entered.connect(_body_entered)
+	body_exited.connect(_body_exited)
+
+func _process(delta):
+	if car == null:
+		return
+
+	var speed = car.linear_velocity.length()
+
+	if speed < stop_speed_threshold:
+		time_below_threshold += delta
+		if time_below_threshold >= required_stop_time:
+			car_has_stopped = true
+	else:
+		time_below_threshold = 0.0
