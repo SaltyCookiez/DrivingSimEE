@@ -10,7 +10,7 @@ var car: Node3D = null
 var time_below_threshold: float = 0.0
 var car_has_stopped: bool = false
 
-func _on_body_entered(body: Node3D) -> void:
+func _body_entered(body: Node3D) -> void:
 	# Check if the body is car
 	if body.is_in_group("car"):
 		car = body
@@ -18,3 +18,11 @@ func _on_body_entered(body: Node3D) -> void:
 		car_has_stopped = false
 		# Print debug for testing rn
 		print("Car is at the stop sign")
+
+func _body_exited(body: Node3D) -> void:
+	# Adding additional debug for testing
+	if body == car:
+		print("Car stopped in front of stop sign")
+	else:
+		print("Car ignored the stop sign and didn't stop")
+	car = null
