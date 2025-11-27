@@ -1,33 +1,52 @@
 extends SpringArm3D
 
 @export var car: VehicleBody3D
+@export var height: float = 2.0
+@export var distance: float = 6.0
+@export var yaw_offset_degrees: float = 0.0
 
-var MouseSensitivity = 0.1
-var pitch_deg := -10.0
-@export var yaw_offset_degrees := -90.0
+var mouse_sensitivity: float = 0.1
+var pitch_deg: float = -10.0
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	# set_as_top_level(true)
-	var cam := get_node_or_null("Camera3D")
-	if cam:
-		cam.make_current()
+	$Camera3D.current = true
+	spring_length = 0.0
+
 	if car == null and get_parent() is VehicleBody3D:
 		car = get_parent() as VehicleBody3D
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		pitch_deg -= event.relative.y * MouseSensitivity
-		pitch_deg = clamp(pitch_deg, -15.0, 10.0)
-		rotation_degrees.x = pitch_deg
+		pitch_deg -= event.relative.y * mouse_sensitivity
+		pitch_deg = clamp(pitch_deg, -30.0, 10.0)
 
-func _process(_delta):
+func _physics_process(_delta):
 	if car == null:
+		push_warning("Camera has no 'car' assigned!")
 		return
 
-	global_position = car.global_transform.origin
+	var car_transform: Transform3D = car.global_transform
+	var car_pos: Vector3 = car_transform.origin
 
-	var car_euler: Vector3 = car.global_transform.basis.get_euler()
-	var yaw := car_euler.y + deg_to_rad(yaw_offset_degrees)
+	var base_pos: Vector3 = car_pos + Vector3.UP * height
 
-	rotation = Vector3(deg_to_rad(pitch_deg), yaw, 0.0)
+	var back_dir: Vector3 = -car_transform.basis.z
+	back_dir.y = 0.0
+	if back_dir.length() == 0.0:
+		back_dir = Vector3.FORWARD
+	back_dir = back_dir.normalized()
+
+	var yaw_offset: float = deg_to_rad(yaw_offset_degrees)
+	var yaw_rot := Basis(Vector3.UP, yaw_offset)
+	back_dir = yaw_rot * back_dir
+
+	global_position = base_pos - back_dir * distance
+
+	var look_target: Vector3 = car_pos
+	var forward_dir: Vector3 = (look_target - global_position).normalized()
+	var yaw: float = atan2(forward_dir.x, forward_dir.z)
+
+	var basis := Basis(Vector3.UP, yaw)
+	basis = basis.rotated(basis.x, deg_to_rad(pitch_deg))
+	global_transform.basis = basis
