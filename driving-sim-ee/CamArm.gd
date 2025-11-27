@@ -1,10 +1,13 @@
 extends SpringArm3D
 
 var MouseSensitivity = 0.1
+var auto_turn_speed := 5.0
+var car = null
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	set_as_top_level(true)
+	car = get_parent()
 
 func _input(event):
 	if event is InputEventMouseMotion:
