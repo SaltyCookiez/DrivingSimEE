@@ -16,3 +16,13 @@ func _input(event):
 
 		rotation_degrees.y -= event.relative.x * MouseSensitivity
 		rotation_degrees.y = wrapf(rotation_degrees.y, 0.0, 360.0)
+
+func _process(delta):
+	if car == null:
+		return
+	
+	var vel = car.linear_velocity
+	
+	if vel.length() > 0.1:
+		var target_yaw = atan2(-vel.x, -vel.z) * 180.0 / PI
+		rotation_degrees.y = lerp_angle(rotation_degrees.y, target_yaw, auto_turn_speed * delta)
