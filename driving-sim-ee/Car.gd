@@ -1,5 +1,7 @@
 extends VehicleBody3D
 
+var speed_kmh: float = 0.0
+
 var hud = null
 
 # Engine & Transmission
@@ -79,7 +81,8 @@ func _apply_anti_roll_bar():
 
 func _physics_process(delta):
 	
-	var speed = linear_velocity.length() * 3.6
+	speed_kmh = linear_velocity.length() * 3.6
+	var speed = speed_kmh
 	
 	if hud:
 		hud.update_speed(-speed if gear_mode == "R" else speed)
