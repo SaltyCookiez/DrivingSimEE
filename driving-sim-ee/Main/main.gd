@@ -1,6 +1,7 @@
 extends Node
 
 @onready var level_container = $LevelContainer
+# @onready var car = $Car
 @onready var hud = $HUD
 @onready var main_menu = $MainMenu
 @onready var pause_menu = $PauseMenu
@@ -9,6 +10,7 @@ var current_level: Node = null
 
 func _ready():
 	print("Main scene loaded")
+	
 	hud.visible = false
 	main_menu.visible = true
 	pause_menu.visible = false
@@ -38,6 +40,14 @@ func load_level(path: String):
 
 	var new_scene = load(path).instantiate()
 	level_container.add_child(new_scene)
+	current_level = new_scene
+	
+	var car = new_scene.get_node_or_null("Car")
+
+	if car:
+		car.set_hud(hud)
+	else:
+		print("WARNING: Car not found")
 
 	hud.visible = true
 	main_menu.visible = false
