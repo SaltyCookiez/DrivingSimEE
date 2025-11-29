@@ -2,8 +2,8 @@ extends Node3D
 
 # Attach to sign later
 
-@export var required_stop_time: float = 1.0
-@export var stop_speed: float = 1.0
+@export var parking_detect_time: float = 5.0
+@export var parking_speed: float = 2.0
 
 @onready var detection_area: Area3D = $DetectionArea
 
@@ -25,12 +25,20 @@ func body_exited(body: Node3D) -> void:
 
 	_car_inside = false
 
-	if _stopped_time >= required_stop_time:
-		TrafficStats.stop_correct += 1
-		print("STOP: Õige, peatus", _stopped_time, "seconds")
+	var was_parking := _stopped_time >= parking_detect_time
+	var is_odd_day_now := TrafficStats.is_odd_day()
+
+	if was_parking:
+		if is_odd_day_now:
+			TrafficStats.odd_parking_violation += 1
+			print("Odd-day NO-PARKING: violation, parked for", _stopped_time, "seconds")
+		else:
+			TrafficStats.odd_parking_ok += 1
+			print("Odd-day NO-PARKING: parked but day is allowed")
 	else:
-		TrafficStats.stop_wrong += 1
-		print("STOP: Vale, peatus", _stopped_time, "seconds")
+		# Car passed through without parking
+		TrafficStats.odd_parking_ok += 1
+		print("Odd-day NO-PARKING: did not park")
 
 	_car = null
 
@@ -47,5 +55,8 @@ func _physics_process(delta: float) -> void:
 
 	var current_speed = _car.speed_kmh
 
-	if abs(current_speed) <= stop_speed:
+	if abs(current_speed) <= parking_speed:
 		_stopped_time += delta
+	else:
+		# Reset if car moves again
+		_stopped_time = 0.0
