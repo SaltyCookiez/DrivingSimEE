@@ -1,49 +1,49 @@
 extends Node3D
 
-# Attach to sign later
+@export var required_stop_time: float = 1.0
+@export var stop_speed_threshold_kmh: float = 1.0
 
-@export var slow_down: float = 10
 @onready var detection_area: Area3D = $DetectionArea
 
 var _car: Node3D = null
 var _car_inside := false
-var _min_speed_in_area: float = 9999
+var _stopped_time: float = 0.0
 
 func body_entered(body: Node3D) -> void:
 	if not body.is_in_group("car"):
 		return
-	
+
 	_car = body
 	_car_inside = true
-	_min_speed_in_area = 9999
-	
+	_stopped_time = 0.0
+
 func body_exited(body: Node3D) -> void:
 	if not body.is_in_group("car"):
 		return
-		
+
 	_car_inside = false
-	
-	# Check
-	if _min_speed_in_area <= slow_down:
-		TrafficStats.give_way_correct += 1
-		print("Anna teed: Õige, min kiirus:", _min_speed_in_area)
+
+	if _stopped_time >= required_stop_time:
+		TrafficStats.stop_correct += 1
+		print("STOP: Õige, peatus", _stopped_time, "seconds")
 	else:
-		TrafficStats.give_way_wrong += 1
-		print("Anna teed: Vale, min kiirus:", _min_speed_in_area)
+		TrafficStats.stop_wrong += 1
+		print("STOP: Vale, peatus", _stopped_time, "seconds")
 
 	_car = null
 
 func _ready() -> void:
 	detection_area.body_entered.connect(body_entered)
 	detection_area.body_exited.connect(body_exited)
-	
-func _physics_process(_delta: float) -> void:
+
+func _physics_process(delta: float) -> void:
 	if not _car_inside or _car == null:
 		return
-	
+
 	if not _car.has_variable("speed_kmh"):
 		return
-	
+
 	var current_speed = _car.speed_kmh
-	if current_speed < _min_speed_in_area:
-		_min_speed_in_area = current_speed
+
+	if abs(current_speed) <= stop_speed_threshold_kmh:
+		_stopped_time += delta
