@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=39 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
@@ -26,6 +26,9 @@
 [ext_resource type="PackedScene" uid="uid://0hxv0ivpdhar" path="res://Scenes/Buildings/building_skyscraper_c.tscn" id="21_qtdbr"]
 [ext_resource type="PackedScene" uid="uid://c4nvxrwqugnh5" path="res://Scenes/Buildings/building_skyscraper_d.tscn" id="22_mhdm3"]
 [ext_resource type="PackedScene" uid="uid://bdp7ogvs4dtkn" path="res://Scenes/Buildings/building_skyscraper_e.tscn" id="23_he330"]
+[ext_resource type="Script" uid="uid://dsmre57uri4ee" path="res://Scenes/RoadSigns/GiveWaySign.gd" id="31_p0f2v"]
+[ext_resource type="Script" uid="uid://bbk2lf6ec71og" path="res://Scenes/RoadSigns/OddDayParkingSign.gd" id="32_7h8tf"]
+[ext_resource type="Script" uid="uid://wdd133wwgqvd" path="res://Scenes/RoadSigns/StopSign.gd" id="33_lfch0"]
 [ext_resource type="PackedScene" uid="uid://cqri10pxlbjt2" path="res://Scenes/Roads/road_curve_intersection.tscn" id="35_yj3ut"]
 [ext_resource type="PackedScene" uid="uid://b4jo5oc8mjn2t" path="res://Scenes/Roads/road_crossroad_line.tscn" id="36_uuy4v"]
 [ext_resource type="PackedScene" uid="uid://btji2w21481pb" path="res://Scenes/Roads/road_curve.tscn" id="37_e7ys5"]
@@ -1830,6 +1833,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 234,
 [node name="Signs" type="Node3D" parent="."]
 
 [node name="GiveWaySign" type="Node3D" parent="Signs"]
+script = ExtResource("31_p0f2v")
 
 [node name="Pole" type="MeshInstance3D" parent="Signs/GiveWaySign"]
 
@@ -1840,6 +1844,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 234,
 [node name="Collision" type="CollisionShape3D" parent="Signs/GiveWaySign/DetectionArea"]
 
 [node name="OddDayParkingSign" type="Node3D" parent="Signs"]
+script = ExtResource("32_7h8tf")
 
 [node name="Pole" type="MeshInstance3D" parent="Signs/OddDayParkingSign"]
 
@@ -1850,6 +1855,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 234,
 [node name="Collision" type="CollisionShape3D" parent="Signs/OddDayParkingSign/DetectionArea"]
 
 [node name="StopSign" type="Node3D" parent="Signs"]
+script = ExtResource("33_lfch0")
 
 [node name="Pole" type="MeshInstance3D" parent="Signs/StopSign"]
 
