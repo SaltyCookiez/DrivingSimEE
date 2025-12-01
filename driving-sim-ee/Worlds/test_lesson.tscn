@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=36 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
@@ -30,8 +30,6 @@
 [ext_resource type="PackedScene" uid="uid://b4jo5oc8mjn2t" path="res://Scenes/Roads/road_crossroad_line.tscn" id="36_uuy4v"]
 [ext_resource type="PackedScene" uid="uid://btji2w21481pb" path="res://Scenes/Roads/road_curve.tscn" id="37_e7ys5"]
 [ext_resource type="PackedScene" uid="uid://ljgrtp2iu864" path="res://Scenes/Roads/road_intersection.tscn" id="38_crbbq"]
-[ext_resource type="PackedScene" uid="uid://o5uiwfsqanfp" path="res://Scenes/RoadSigns/stop_sign.tscn" id="40_epm2q"]
-[ext_resource type="Script" uid="uid://csj4721kcvyp4" path="res://Worlds/stop_area.gd" id="41_xmgtm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ocbuq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -55,8 +53,6 @@ albedo_color = Color(0.17251366, 0.5706501, 0.15848091, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ocbuq"]
 size = Vector3(500, 100, 2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xmgtm"]
 
 [node name="TestLesson" type="Node3D"]
 
@@ -1831,59 +1827,34 @@ transform = Transform3D(-2.1855695e-07, 0, -5, 0, 5, 0, 5, 0, -2.1855695e-07, -5
 [node name="CarRoot" parent="." instance=ExtResource("13_f1ugh")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 234, 1, 184)
 
-[node name="StopSign" parent="." instance=ExtResource("40_epm2q")]
-transform = Transform3D(-2.1855694e-06, 0, -50, 0, 50, 0, 50, 0, -2.1855694e-06, 53, 1.6, 164.208)
+[node name="Signs" type="Node3D" parent="."]
 
-[node name="Camera Switcher" parent="StopSign" index="0"]
-visible = false
+[node name="GiveWaySign" type="Node3D" parent="Signs"]
 
-[node name="Camera" parent="StopSign" index="1"]
-visible = false
+[node name="Pole" type="MeshInstance3D" parent="Signs/GiveWaySign"]
 
-[node name="Lamp" parent="StopSign" index="2"]
-visible = false
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/GiveWaySign"]
 
-[node name="Bolt_001" parent="StopSign" index="3"]
-transform = Transform3D(4.938117e-09, -1.3497627e-08, 0.08284785, -0.08284785, -3.621394e-09, 4.9381166e-09, 3.6213936e-09, -0.08284784, -1.3497628e-08, 0.30059433, 0.033816516, 0)
+[node name="DetectionArea" type="Area3D" parent="Signs/GiveWaySign"]
 
-[node name="Bolt" parent="StopSign" index="4"]
-transform = Transform3D(4.938117e-09, -1.3497627e-08, 0.08284785, -0.08284785, -3.621394e-09, 4.9381166e-09, 3.6213936e-09, -0.08284784, -1.3497628e-08, 0.30059433, 0.019314319, 0)
+[node name="Collision" type="CollisionShape3D" parent="Signs/GiveWaySign/DetectionArea"]
 
-[node name="Cylinder_001" parent="StopSign" index="5"]
-transform = Transform3D(-1.1920929e-07, -2.682209e-07, -0.007040152, -0.92611945, -0.3772303, 1.888316e-09, -0.37723038, 0.92611945, -8.3925156e-10, 0.3009491, 0.026415288, 0)
+[node name="OddDayParkingSign" type="Node3D" parent="Signs"]
 
-[node name="Cylinder" parent="StopSign" index="6"]
-transform = Transform3D(0.10061433, 4.440892e-16, 0, 0, -1.1994163e-08, 2.897925, 4.440892e-16, -0.10061433, -3.454596e-07, 0.29999924, 0.005656481, 0)
+[node name="Pole" type="MeshInstance3D" parent="Signs/OddDayParkingSign"]
 
-[node name="CollisionShape3D" parent="StopSign/Cylinder/StaticBody3D" index="0"]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 6.560345e-21, 1.323489e-23, 7.9081e-24, 0.99999994, 0, 0, 0)
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/OddDayParkingSign"]
 
-[node name="Producer Perspective" parent="StopSign" index="7"]
-visible = false
+[node name="DetectionArea" type="Area3D" parent="Signs/OddDayParkingSign"]
 
-[node name="Producer Top" parent="StopSign" index="8"]
-visible = false
+[node name="Collision" type="CollisionShape3D" parent="Signs/OddDayParkingSign/DetectionArea"]
 
-[node name="Producer Bottom" parent="StopSign" index="9"]
-visible = false
+[node name="StopSign" type="Node3D" parent="Signs"]
 
-[node name="Producer Front" parent="StopSign" index="10"]
-visible = false
+[node name="Pole" type="MeshInstance3D" parent="Signs/StopSign"]
 
-[node name="Producer Back" parent="StopSign" index="11"]
-visible = false
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/StopSign"]
 
-[node name="Producer Right" parent="StopSign" index="12"]
-visible = false
+[node name="DetectionArea" type="Area3D" parent="Signs/StopSign"]
 
-[node name="Producer Left" parent="StopSign" index="13"]
-visible = false
-
-[node name="StopArea" type="Area3D" parent="StopSign"]
-script = ExtResource("41_xmgtm")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StopSign/StopArea"]
-transform = Transform3D(8, 0, 4.5068712e-14, 0, 1, 0, -9.744586e-14, 0, 3.7, 0.3400004, -0.019999996, 0.03999996)
-shape = SubResource("BoxShape3D_xmgtm")
-
-[editable path="StopSign"]
+[node name="Collision" type="CollisionShape3D" parent="Signs/StopSign/DetectionArea"]
