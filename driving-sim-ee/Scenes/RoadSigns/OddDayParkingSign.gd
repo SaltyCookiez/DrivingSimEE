@@ -30,10 +30,10 @@ func body_exited(body: Node3D) -> void:
 
 	if was_parking:
 		if is_odd_day_now:
-			TrafficStats.odd_parking_violation += 1
+			TrafficStats.odd_parking_correct += 1
 			print("Odd-day NO-PARKING: violation, parked for", _stopped_time, "seconds")
 		else:
-			TrafficStats.odd_parking_ok += 1
+			TrafficStats.odd_parking_wrong += 1
 			print("Odd-day NO-PARKING: parked but day is allowed")
 	else:
 		# Car passed through without parking

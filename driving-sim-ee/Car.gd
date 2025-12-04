@@ -35,7 +35,10 @@ var gear_mode = "D" # P, R, N, D
 var debug_enabled = true
 
 # Helper for camera sync
-@onready var cam_arm = $CamArm
+@onready var cam_arm: Camera3D = $CamArm/Camera3D
+@onready var cam_pov: Camera3D = $POV/Camera3D
+
+var is_pov := false
 
 func set_hud(h):
 	hud = h
@@ -78,6 +81,10 @@ func _apply_anti_roll_bar():
 	if wrr.is_in_contact():
 		apply_force(global_transform.basis.y * anti_roll_rear, wrr.global_transform.origin - global_transform.origin)
 
+func set_pov(enable: bool) -> void:
+	is_pov = enable
+	cam_arm.current = not enable
+	cam_pov.current = enable
 
 func _physics_process(delta):
 	
@@ -89,7 +96,7 @@ func _physics_process(delta):
 		hud.update_gear(_get_display_gear())
 	
 	# Camera follow
-	cam_arm.position = position
+	# cam_arm.position = position
 
 	# Inputs
 	acceleration_input = Input.get_action_strength("Gas")   # W
@@ -166,6 +173,9 @@ func _physics_process(delta):
 	#if debug_enabled:
 		#_print_debug(speed)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("camera_switch"):
+		set_pov(not is_pov)
 
 # Engine and Transmission
 func _calculate_engine_torque(rpm: float) -> float:
@@ -175,14 +185,12 @@ func _calculate_engine_torque(rpm: float) -> float:
 	var min_torque = 120.0   # stronger low RPM torque
 	return base_torque * torque_factor + min_torque
 
-
 func _calculate_engine_force(torque: float) -> float:
 	var gear_ratio = gear_ratios[current_gear - 1] if current_gear > 0 else 0
 	var total_ratio = gear_ratio * final_drive_ratio
 	var wheel_torque = torque * total_ratio
 	# Tuned for realistic acceleration and top speed
 	return wheel_torque / 13.0
-
 
 func _update_engine_rpm(wheel_rpm: float, delta: float):
 	var rpm_scale = 10.0       # controls gear speed span
@@ -207,7 +215,6 @@ func _update_engine_rpm(wheel_rpm: float, delta: float):
 		current_rpm = lerp(float(current_rpm), float(target_rpm), delta * rpm_smooth_up)
 	else:
 		current_rpm = lerp(float(current_rpm), float(target_rpm), delta * rpm_smooth_down)
-
 
 func _handle_automatic_shifting():
 	if gear_mode != "D":
@@ -235,12 +242,10 @@ func _handle_automatic_shifting():
 		current_rpm = clamp(current_rpm * 1.2, idle_rpm, max_rpm)
 		shift_timer = shift_delay
 
-
 func _apply_engine_drag(_delta: float):
 	if acceleration_input == 0 and gear_mode == "D":
 		var drag = engine_drag * linear_velocity.length()
 		apply_central_force(-linear_velocity.normalized() * drag)
-
 
 # Gear management
 func _cycle_gear_mode():
@@ -254,13 +259,14 @@ func _cycle_gear_mode():
 		"D":
 			gear_mode = "P"
 
-
 func _get_display_gear() -> String:
 	if gear_mode == "D":
 		return "D" + str(current_gear)
 	else:
 		return gear_mode
 
+func _ready():
+	set_pov(false)
 
 # Debugging
 #func _print_debug(speed):

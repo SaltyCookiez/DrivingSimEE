@@ -302,3 +302,9 @@ script = ExtResource("3_d41w2")
 
 [node name="Camera3D" type="Camera3D" parent="CamArm"]
 current = true
+
+[node name="POV" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="POV"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.17515576, 1.0037087, 0.32063055)
+fov = 75.3
