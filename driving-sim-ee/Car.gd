@@ -4,6 +4,13 @@ var speed_kmh: float = 0.0
 
 var hud = null
 
+# Automatic / Manual
+# False = Automatic
+# True = Manual
+var manual_mode: bool = false
+var handbrake_strength: float = 60.0
+var is_handbrake_on: bool = false
+
 # Engine & Transmission
 var gear_ratios = [3.2, 1.9, 1.3, 1.0, 0.85, 0.7]
 var final_drive_ratio = 3.0
@@ -127,11 +134,13 @@ func _physics_process(delta):
 
 	# Engine and transmission
 	_update_engine_rpm(wheel_rpm, delta)
-	if gear_mode == "D":
+	if gear_mode == "D" and not manual_mode:
 		_handle_automatic_shifting()
 
 	engine_torque = _calculate_engine_torque(current_rpm)
 	var torque_output = _calculate_engine_force(engine_torque)
+
+	var pedal_brake: float = 0.0
 
 	# Engine force and braking behavior
 	if gear_mode == "D":
@@ -139,22 +148,34 @@ func _physics_process(delta):
 
 		# Apply braking when S pressed
 		if acceleration_input == 0 and brake_input > 0:
-			brake = brake_force * brake_input
+			pedal_brake = brake_force * brake_input
 		else:
-			brake = 0.0
+			pedal_brake = 0.0
 
 	elif gear_mode == "R":
 		# S = reverse throttle, W = forward brake
 		engine_force = -torque_output * brake_input
 
 		if brake_input == 0 and acceleration_input > 0:
-			brake = brake_force * acceleration_input
+			pedal_brake = brake_force * acceleration_input
 		else:
-			brake = 0.0
-
+			pedal_brake = 0.0
+			
+	elif gear_mode == "P":
+		engine_force = 0.0
+		pedal_brake = 0.0
 	else:
 		engine_force = 0.0
-		brake = 0.0
+		pedal_brake = 0.0
+		
+	if gear_mode == "P":
+		brake = handbrake_strength
+		engine_force = 0.0
+	elif is_handbrake_on:
+		brake = handbrake_strength
+		engine_force = 0.0
+	else:
+		brake = pedal_brake
 
 	# Steering
 	steering = lerp(
@@ -176,6 +197,28 @@ func _physics_process(delta):
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Camera_Switch"):
 		set_pov(not is_pov)
+	
+	if event.is_action_pressed("gear_up"):
+		_shift_up_manual()
+
+	if event.is_action_pressed("gear_down"):
+		_shift_down_manual()
+
+	if event.is_action_pressed("toggle_transmission"):
+		manual_mode = not manual_mode
+		# Debug for a safe matter
+		print("Transmission mode:", "MANUAL" if manual_mode else "AUTO")
+
+	if event.is_action_pressed("handbrake"):
+		is_handbrake_on = true
+	if event.is_action_released("handbrake"):
+		is_handbrake_on = false
+	
+	if event.is_action_pressed("gear_parking"):
+		_toggle_parking()
+
+	if event.is_action_pressed("gear_neutral"):
+		_set_neutral()
 
 # Engine and Transmission
 func _calculate_engine_torque(rpm: float) -> float:
@@ -242,6 +285,25 @@ func _handle_automatic_shifting():
 		current_rpm = clamp(current_rpm * 1.2, idle_rpm, max_rpm)
 		shift_timer = shift_delay
 
+# Manual gear change logic: up & down
+func _shift_up_manual() -> void:
+	if not manual_mode:
+		return
+	if gear_mode != "D":
+		return
+	if current_gear < max_gears:
+		current_gear += 1
+		current_rpm *= 0.7
+
+func _shift_down_manual() -> void:
+	if not manual_mode:
+		return
+	if gear_mode != "D":
+		return
+	if current_gear > 1:
+		current_gear -= 1
+		current_rpm = clamp(current_rpm * 1.3, idle_rpm, max_rpm)
+
 func _apply_engine_drag(_delta: float):
 	if acceleration_input == 0 and gear_mode == "D":
 		var drag = engine_drag * linear_velocity.length()
@@ -259,11 +321,45 @@ func _cycle_gear_mode():
 		"D":
 			gear_mode = "P"
 
+func _set_neutral() -> void:
+	gear_mode = "N"
+	engine_force = 0.0
+	brake = 0.0
+	print("Gear mode: N (neutral)")
+
+func _toggle_parking() -> void:
+	if gear_mode == "P":
+		gear_mode = "D"
+		if manual_mode:
+			current_gear = max(current_gear, 1)
+		else:
+			current_gear = max(current_gear, 1)
+		print("Gear mode: D (exit P)")
+		return
+	
+	if speed_kmh < 1.0:
+		gear_mode = "P"
+		engine_force = 0.0
+		linear_velocity = Vector3.ZERO
+		angular_velocity = Vector3.ZERO
+		# Debug for a safe matter again
+		print("Gear mode: P (parking engaged)")
+
 func _get_display_gear() -> String:
-	if gear_mode == "D":
-		return "D" + str(current_gear)
-	else:
-		return gear_mode
+	match gear_mode:
+		"P":
+			return "P"
+		"R":
+			return "R"
+		"N":
+			return "N"
+		"D":
+			if manual_mode:
+				return "M" + str(current_gear)
+			else:
+				return "D" + str(current_gear)
+		_: # Found on the internet about using "Wildcard pattern" so tried to add here for a test
+			return gear_mode
 
 func _ready():
 	set_pov(false)
