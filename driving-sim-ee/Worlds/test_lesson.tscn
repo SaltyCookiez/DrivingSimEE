@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=45 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
@@ -57,6 +57,10 @@ albedo_color = Color(0.17251366, 0.5706501, 0.15848091, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ocbuq"]
 size = Vector3(500, 100, 2)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7h8tf"]
+height = 2.5
+radius = 0.05
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_lfch0"]
 top_radius = 0.05
@@ -1872,6 +1876,12 @@ script = ExtResource("32_7h8tf")
 
 [node name="StopSign" type="Node3D" parent="Signs"]
 script = ExtResource("33_lfch0")
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/StopSign"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/StopSign/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202, 1.7, 206)
+shape = SubResource("CylinderShape3D_7h8tf")
 
 [node name="Pole" type="MeshInstance3D" parent="Signs/StopSign"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202, 1.7, 206)
