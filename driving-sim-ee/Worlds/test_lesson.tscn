@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=57 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://y3vpkoou8gdl" path="res://Scenes/RoadSigns/221.png" id="32_lfch0"]
 [ext_resource type="Script" uid="uid://wdd133wwgqvd" path="res://Scenes/RoadSigns/StopSign.gd" id="33_lfch0"]
 [ext_resource type="Texture2D" uid="uid://bqjmjxwncf1mi" path="res://Scenes/RoadSigns/222.png" id="34_7h8tf"]
+[ext_resource type="Texture2D" uid="uid://b6smx6o3jinkh" path="res://Scenes/RoadSigns/363.png" id="34_85gsk"]
 [ext_resource type="PackedScene" uid="uid://cqri10pxlbjt2" path="res://Scenes/Roads/road_curve_intersection.tscn" id="35_yj3ut"]
 [ext_resource type="PackedScene" uid="uid://b4jo5oc8mjn2t" path="res://Scenes/Roads/road_crossroad_line.tscn" id="36_uuy4v"]
 [ext_resource type="PackedScene" uid="uid://btji2w21481pb" path="res://Scenes/Roads/road_curve.tscn" id="37_e7ys5"]
@@ -75,6 +76,23 @@ albedo_texture = ExtResource("32_lfch0")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_epm2q"]
 size = Vector3(1.7, 4, 4)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b0nfo"]
+height = 2.5
+radius = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_j0dfw"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 2.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6a8qa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_epm2q"]
+albedo_texture = ExtResource("34_85gsk")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j0dfw"]
+size = Vector3(3, 6, 50)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7h8tf"]
 height = 2.5
@@ -1896,13 +1914,26 @@ shape = SubResource("BoxShape3D_epm2q")
 [node name="OddDayParkingSign" type="Node3D" parent="Signs"]
 script = ExtResource("32_7h8tf")
 
+[node name="SignCollision" type="StaticBody3D" parent="Signs/OddDayParkingSign"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/OddDayParkingSign/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 1.7, 164)
+shape = SubResource("CylinderShape3D_b0nfo")
+
 [node name="Pole" type="MeshInstance3D" parent="Signs/OddDayParkingSign"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 1.7, 164)
+mesh = SubResource("CylinderMesh_j0dfw")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/OddDayParkingSign"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 139, 2.7, 164.1)
+mesh = SubResource("PlaneMesh_6a8qa")
+surface_material_override/0 = SubResource("StandardMaterial3D_epm2q")
 
 [node name="DetectionArea" type="Area3D" parent="Signs/OddDayParkingSign"]
 
 [node name="Collision" type="CollisionShape3D" parent="Signs/OddDayParkingSign/DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 1, 167)
+shape = SubResource("BoxShape3D_j0dfw")
 
 [node name="StopSign" type="Node3D" parent="Signs"]
 script = ExtResource("33_lfch0")
