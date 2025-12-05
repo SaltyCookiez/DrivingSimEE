@@ -267,6 +267,7 @@ func _get_display_gear() -> String:
 
 func _ready():
 	set_pov(false)
+	set_meta("is_car", true)
 
 # Debugging
 #func _print_debug(speed):

@@ -42,7 +42,7 @@ func load_level(path: String):
 	level_container.add_child(new_scene)
 	current_level = new_scene
 	
-	var car = new_scene.get_node_or_null("Car")
+	var car = new_scene.get_node_or_null("CarRoot")
 
 	if car:
 		car.set_hud(hud)

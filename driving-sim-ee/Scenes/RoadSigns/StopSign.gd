@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 	if not _car_inside or _car == null:
 		return
 
-	if not _car.has_variable("speed_kmh"):
+	if not _car.has_meta("is_car"):
 		return
 
 	var current_speed = _car.speed_kmh

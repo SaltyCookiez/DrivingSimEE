@@ -1872,8 +1872,6 @@ script = ExtResource("32_7h8tf")
 
 [node name="StopSign" type="Node3D" parent="Signs"]
 script = ExtResource("33_lfch0")
-required_stop_time = null
-stop_speed = null
 
 [node name="Pole" type="MeshInstance3D" parent="Signs/StopSign"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202, 1.7, 206)
