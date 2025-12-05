@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=51 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bdp7ogvs4dtkn" path="res://Scenes/Buildings/building_skyscraper_e.tscn" id="23_he330"]
 [ext_resource type="Script" uid="uid://dsmre57uri4ee" path="res://Scenes/RoadSigns/GiveWaySign.gd" id="31_p0f2v"]
 [ext_resource type="Script" uid="uid://bbk2lf6ec71og" path="res://Scenes/RoadSigns/OddDayParkingSign.gd" id="32_7h8tf"]
+[ext_resource type="Texture2D" uid="uid://y3vpkoou8gdl" path="res://Scenes/RoadSigns/221.png" id="32_lfch0"]
 [ext_resource type="Script" uid="uid://wdd133wwgqvd" path="res://Scenes/RoadSigns/StopSign.gd" id="33_lfch0"]
 [ext_resource type="Texture2D" uid="uid://bqjmjxwncf1mi" path="res://Scenes/RoadSigns/222.png" id="34_7h8tf"]
 [ext_resource type="PackedScene" uid="uid://cqri10pxlbjt2" path="res://Scenes/Roads/road_curve_intersection.tscn" id="35_yj3ut"]
@@ -57,6 +58,23 @@ albedo_color = Color(0.17251366, 0.5706501, 0.15848091, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ocbuq"]
 size = Vector3(500, 100, 2)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_85gsk"]
+height = 2.5
+radius = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_b0nfo"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 2.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0dfw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6a8qa"]
+albedo_texture = ExtResource("32_lfch0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_epm2q"]
+size = Vector3(1.7, 4, 4)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_7h8tf"]
 height = 2.5
@@ -1853,15 +1871,27 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 234,
 
 [node name="GiveWaySign" type="Node3D" parent="Signs"]
 script = ExtResource("31_p0f2v")
-slow_down = null
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/GiveWaySign"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/GiveWaySign/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 1.7, 207)
+shape = SubResource("CylinderShape3D_85gsk")
 
 [node name="Pole" type="MeshInstance3D" parent="Signs/GiveWaySign"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 1.7, 207)
+mesh = SubResource("CylinderMesh_b0nfo")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/GiveWaySign"]
+transform = Transform3D(-2.1855694e-08, 0.5, -2.1855694e-08, 0, -2.1855694e-08, -0.5, -0.5, -2.1855694e-08, 9.553427e-16, 141.05, 2.7, 207)
+mesh = SubResource("PlaneMesh_j0dfw")
+surface_material_override/0 = SubResource("StandardMaterial3D_6a8qa")
 
 [node name="DetectionArea" type="Area3D" parent="Signs/GiveWaySign"]
 
 [node name="Collision" type="CollisionShape3D" parent="Signs/GiveWaySign/DetectionArea"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 143, 1, 209.2)
+shape = SubResource("BoxShape3D_epm2q")
 
 [node name="OddDayParkingSign" type="Node3D" parent="Signs"]
 script = ExtResource("32_7h8tf")
@@ -1888,7 +1918,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202, 1.7, 206)
 mesh = SubResource("CylinderMesh_lfch0")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/StopSign"]
-transform = Transform3D(-0.5, -7.54979e-08, 3.300118e-15, 0, -2.1855694e-08, -0.5, 7.54979e-08, -0.5, 2.1855694e-08, 202, 3, 205.9)
+transform = Transform3D(-0.5, -7.54979e-08, 3.300118e-15, 0, -2.1855694e-08, -0.5, 7.54979e-08, -0.5, 2.1855694e-08, 202, 3, 205.95)
 mesh = SubResource("PlaneMesh_85gsk")
 surface_material_override/0 = SubResource("StandardMaterial3D_b0nfo")
 
