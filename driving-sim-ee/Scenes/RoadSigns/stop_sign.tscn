@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://o5uiwfsqanfp"]
-
-[ext_resource type="PackedScene" uid="uid://c1n0p2chrum37" path="res://Scenes/RoadSigns/StopSign.fbx" id="1_eiaps"]
-
-[node name="StopSign" instance=ExtResource("1_eiaps")]

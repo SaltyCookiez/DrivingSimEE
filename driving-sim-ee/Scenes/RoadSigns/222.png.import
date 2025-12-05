@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c074g6euo5x4t"
-path.s3tc="res://.godot/imported/119498958977780800stop_sign_right_font_mig_.svg.med.png-306d1eb8eb7f791459f1121373fa1fd5.s3tc.ctex"
+uid="uid://bqjmjxwncf1mi"
+path.s3tc="res://.godot/imported/222.png-a23bbc5bd390544da61e66d2a895933a.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Scenes/RoadSigns/119498958977780800stop_sign_right_font_mig_.svg.med.png"
-dest_files=["res://.godot/imported/119498958977780800stop_sign_right_font_mig_.svg.med.png-306d1eb8eb7f791459f1121373fa1fd5.s3tc.ctex"]
+source_file="res://Scenes/RoadSigns/222.png"
+dest_files=["res://.godot/imported/222.png-a23bbc5bd390544da61e66d2a895933a.s3tc.ctex"]
 
 [params]
 
