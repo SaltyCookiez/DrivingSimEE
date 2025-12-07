@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=76 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
@@ -34,8 +34,14 @@
 [ext_resource type="Texture2D" uid="uid://b6smx6o3jinkh" path="res://Scenes/RoadSigns/363.png" id="34_85gsk"]
 [ext_resource type="PackedScene" uid="uid://cqri10pxlbjt2" path="res://Scenes/Roads/road_curve_intersection.tscn" id="35_yj3ut"]
 [ext_resource type="PackedScene" uid="uid://b4jo5oc8mjn2t" path="res://Scenes/Roads/road_crossroad_line.tscn" id="36_uuy4v"]
+[ext_resource type="Texture2D" uid="uid://dddvj2b7fhnhc" path="res://Scenes/RoadSigns/543.png" id="37_57rdg"]
 [ext_resource type="PackedScene" uid="uid://btji2w21481pb" path="res://Scenes/Roads/road_curve.tscn" id="37_e7ys5"]
+[ext_resource type="Texture2D" uid="uid://bxpv1gbba5no2" path="res://Scenes/RoadSigns/352.png" id="38_c2qnq"]
 [ext_resource type="PackedScene" uid="uid://ljgrtp2iu864" path="res://Scenes/Roads/road_intersection.tscn" id="38_crbbq"]
+[ext_resource type="Texture2D" uid="uid://dkqwejwm2gavw" path="res://Scenes/RoadSigns/332.png" id="39_m8hff"]
+[ext_resource type="Texture2D" uid="uid://dl0mua1p5kdd7" path="res://Scenes/RoadSigns/333.png" id="40_vgn83"]
+[ext_resource type="Texture2D" uid="uid://428p6wgslg6l" path="res://Scenes/RoadSigns/334.png" id="41_68iw1"]
+[ext_resource type="Texture2D" uid="uid://cuyrrpsr4gln0" path="res://Scenes/RoadSigns/331.png" id="42_0ddj3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ocbuq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -111,6 +117,47 @@ albedo_texture = ExtResource("34_7h8tf")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7h8tf"]
 size = Vector3(1.7, 4, 4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xfira"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n57t8"]
+albedo_texture = ExtResource("37_57rdg")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gnm3u"]
+material = SubResource("StandardMaterial3D_n57t8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bl7ek"]
+albedo_texture = ExtResource("38_c2qnq")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_b4mcu"]
+material = SubResource("StandardMaterial3D_bl7ek")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4843o"]
+albedo_texture = ExtResource("39_m8hff")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4gq26"]
+material = SubResource("StandardMaterial3D_4843o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gssm4"]
+albedo_texture = ExtResource("40_vgn83")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3xni3"]
+material = SubResource("StandardMaterial3D_gssm4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t84a0"]
+albedo_texture = ExtResource("41_68iw1")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qtdbr"]
+material = SubResource("StandardMaterial3D_t84a0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhdm3"]
+albedo_texture = ExtResource("42_0ddj3")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_he330"]
+material = SubResource("StandardMaterial3D_mhdm3")
 
 [node name="TestLesson" type="Node3D"]
 
@@ -1958,3 +2005,133 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b0nfo")
 [node name="Collision" type="CollisionShape3D" parent="Signs/StopSign/DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204, 1, 204)
 shape = SubResource("BoxShape3D_7h8tf")
+
+[node name="PedestrianWalkSign" type="Node3D" parent="Signs"]
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/PedestrianWalkSign"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 1.7, 164)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/PedestrianWalkSign"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 1.7, 164)
+mesh = SubResource("CylinderMesh_xfira")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/PedestrianWalkSign"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 141, 2.7, 164.1)
+mesh = SubResource("PlaneMesh_gnm3u")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/PedestrianWalkSign"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign/DetectionArea"]
+
+[node name="OvertakeProhibited" type="Node3D" parent="Signs"]
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/OvertakeProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/OvertakeProhibited/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143, 1.7, 164)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/OvertakeProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143, 1.7, 164)
+mesh = SubResource("CylinderMesh_xfira")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/OvertakeProhibited"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 143, 2.7, 164.1)
+mesh = SubResource("PlaneMesh_b4mcu")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/OvertakeProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/OvertakeProhibited/DetectionArea"]
+
+[node name="RightTurnProhibited" type="Node3D" parent="Signs"]
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/RightTurnProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/RightTurnProhibited/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 1.7, 164)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/RightTurnProhibited"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 145, 2.7, 164.1)
+mesh = SubResource("PlaneMesh_4gq26")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/RightTurnProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 1.7, 164)
+mesh = SubResource("CylinderMesh_xfira")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/RightTurnProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/RightTurnProhibited/DetectionArea"]
+
+[node name="LeftTurnProhibited" type="Node3D" parent="Signs"]
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/LeftTurnProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/LeftTurnProhibited/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147, 1.7, 164)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/LeftTurnProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147, 1.7, 164)
+mesh = SubResource("CylinderMesh_xfira")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/LeftTurnProhibited"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 147, 2.7, 164.1)
+mesh = SubResource("PlaneMesh_3xni3")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/LeftTurnProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/LeftTurnProhibited/DetectionArea"]
+
+[node name="UTurnProhibited" type="Node3D" parent="Signs"]
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/UTurnProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/UTurnProhibited/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 149, 1.7, 164)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/UTurnProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 149, 1.7, 164)
+mesh = SubResource("CylinderMesh_xfira")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/UTurnProhibited"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 149, 2.7, 164.1)
+mesh = SubResource("PlaneMesh_qtdbr")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/UTurnProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/UTurnProhibited/DetectionArea"]
+
+[node name="DriveThroughProhibited" type="Node3D" parent="Signs"]
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/DriveThroughProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/DriveThroughProhibited/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 1.7, 164)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/DriveThroughProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 1.7, 164)
+mesh = SubResource("CylinderMesh_xfira")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/DriveThroughProhibited"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 151, 2.7, 164.1)
+mesh = SubResource("PlaneMesh_he330")
+skeleton = NodePath("../../PedestrianWalkSign")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/DriveThroughProhibited"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/DriveThroughProhibited/DetectionArea"]
