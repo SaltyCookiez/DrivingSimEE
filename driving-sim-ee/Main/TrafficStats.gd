@@ -1,5 +1,13 @@
 extends Node
 
+var overtake_wrong = 0
+
+var drive_through_wrong = 0
+
+var u_turn_wrong = 0
+var right_turn_wrong = 0
+var left_turn_wrong = 0
+
 var give_way_correct := 0
 var give_way_wrong := 0
 
