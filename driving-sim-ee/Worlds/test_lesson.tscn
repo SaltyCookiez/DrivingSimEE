@@ -2030,24 +2030,96 @@ script = ExtResource("37_xfira")
 [node name="SignCollision" type="StaticBody3D" parent="Signs/PedestrianWalkSign"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign/SignCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 1.7, 164)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 178)
 shape = SubResource("CylinderShape3D_b0nfo")
 
 [node name="Pole" type="MeshInstance3D" parent="Signs/PedestrianWalkSign"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 1.7, 164)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 178)
 mesh = SubResource("CylinderMesh_xfira")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/PedestrianWalkSign"]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 141, 2.7, 164.1)
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 23, 2.7, 178.05)
 mesh = SubResource("PlaneMesh_gnm3u")
 
 [node name="DetectionArea" type="Area3D" parent="Signs/PedestrianWalkSign"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign/DetectionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 1, 164)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 178)
+shape = SubResource("BoxShape3D_57rdg")
+
+[node name="PedestrianWalkSign2" type="Node3D" parent="Signs"]
+script = ExtResource("37_xfira")
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/PedestrianWalkSign2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign2/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 172)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/PedestrianWalkSign2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 172)
+mesh = SubResource("CylinderMesh_xfira")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/PedestrianWalkSign2"]
+transform = Transform3D(-2.1855694e-08, 0.5, -2.1855694e-08, 0, -2.1855694e-08, -0.5, -0.5, -2.1855694e-08, 9.553427e-16, 23.05, 2.7, 172)
+mesh = SubResource("PlaneMesh_gnm3u")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/PedestrianWalkSign2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign2/DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 172)
+shape = SubResource("BoxShape3D_57rdg")
+
+[node name="PedestrianWalkSign3" type="Node3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
+script = ExtResource("37_xfira")
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/PedestrianWalkSign3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign3/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 178)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/PedestrianWalkSign3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 178)
+mesh = SubResource("CylinderMesh_xfira")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/PedestrianWalkSign3"]
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 23, 2.7, 177.95)
+mesh = SubResource("PlaneMesh_gnm3u")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/PedestrianWalkSign3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign3/DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 178)
+shape = SubResource("BoxShape3D_57rdg")
+
+[node name="PedestrianWalkSign4" type="Node3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 6)
+script = ExtResource("37_xfira")
+
+[node name="SignCollision" type="StaticBody3D" parent="Signs/PedestrianWalkSign4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign4/SignCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 172)
+shape = SubResource("CylinderShape3D_b0nfo")
+
+[node name="Pole" type="MeshInstance3D" parent="Signs/PedestrianWalkSign4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 172)
+mesh = SubResource("CylinderMesh_xfira")
+
+[node name="SignPlate" type="MeshInstance3D" parent="Signs/PedestrianWalkSign4"]
+transform = Transform3D(-2.1855694e-08, -0.5, 2.1855694e-08, 0, -2.1855694e-08, -0.5, 0.5, -2.1855694e-08, 9.553427e-16, 22.95, 2.7, 172)
+mesh = SubResource("PlaneMesh_gnm3u")
+
+[node name="DetectionArea" type="Area3D" parent="Signs/PedestrianWalkSign4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign4/DetectionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 172)
 shape = SubResource("BoxShape3D_57rdg")
 
 [node name="OvertakeProhibited" type="Node3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, 43)
 script = ExtResource("39_n57t8")
 
 [node name="SignCollision" type="StaticBody3D" parent="Signs/OvertakeProhibited"]
@@ -2062,7 +2134,7 @@ mesh = SubResource("CylinderMesh_xfira")
 skeleton = NodePath("../../PedestrianWalkSign")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/OvertakeProhibited"]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 143, 2.7, 164.1)
+transform = Transform3D(-2.1855694e-08, 0.5, -2.1855694e-08, 0, -2.1855694e-08, -0.5, -0.5, -2.1855694e-08, 9.553427e-16, 143.05, 2.7, 164)
 mesh = SubResource("PlaneMesh_b4mcu")
 skeleton = NodePath("../../PedestrianWalkSign")
 
@@ -2073,6 +2145,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143, 1, 164)
 shape = SubResource("BoxShape3D_c2qnq")
 
 [node name="RightTurnProhibited" type="Node3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87, 0, 43)
 script = ExtResource("41_gnm3u")
 
 [node name="SignCollision" type="StaticBody3D" parent="Signs/RightTurnProhibited"]
@@ -2082,7 +2155,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 1.7, 164)
 shape = SubResource("CylinderShape3D_b0nfo")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/RightTurnProhibited"]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 145, 2.7, 164.1)
+transform = Transform3D(-2.1855694e-08, 0.5, -2.1855694e-08, 0, -2.1855694e-08, -0.5, -0.5, -2.1855694e-08, 9.553427e-16, 145.05, 2.7, 164)
 mesh = SubResource("PlaneMesh_4gq26")
 skeleton = NodePath("../../PedestrianWalkSign")
 
@@ -2098,6 +2171,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 1, 164)
 shape = SubResource("BoxShape3D_m8hff")
 
 [node name="LeftTurnProhibited" type="Node3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 8)
 script = ExtResource("43_bl7ek")
 
 [node name="SignCollision" type="StaticBody3D" parent="Signs/LeftTurnProhibited"]
@@ -2112,7 +2186,7 @@ mesh = SubResource("CylinderMesh_xfira")
 skeleton = NodePath("../../PedestrianWalkSign")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/LeftTurnProhibited"]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 147, 2.7, 164.1)
+transform = Transform3D(-0.5, -4.371139e-08, 1.9106855e-15, 0, -2.1855694e-08, -0.5, 4.371139e-08, -0.5, 2.1855694e-08, 147, 2.7, 163.95)
 mesh = SubResource("PlaneMesh_3xni3")
 skeleton = NodePath("../../PedestrianWalkSign")
 
@@ -2123,6 +2197,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147, 1, 164)
 shape = SubResource("BoxShape3D_vgn83")
 
 [node name="UTurnProhibited" type="Node3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -142)
 script = ExtResource("45_b4mcu")
 
 [node name="SignCollision" type="StaticBody3D" parent="Signs/UTurnProhibited"]
@@ -2137,7 +2212,7 @@ mesh = SubResource("CylinderMesh_xfira")
 skeleton = NodePath("../../PedestrianWalkSign")
 
 [node name="SignPlate" type="MeshInstance3D" parent="Signs/UTurnProhibited"]
-transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 149, 2.7, 164.1)
+transform = Transform3D(-2.1855694e-08, 0.5, -2.1855694e-08, 0, -2.1855694e-08, -0.5, -0.5, -2.1855694e-08, 9.553427e-16, 149.05, 2.7, 164)
 mesh = SubResource("PlaneMesh_qtdbr")
 skeleton = NodePath("../../PedestrianWalkSign")
 
@@ -2148,6 +2223,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 149, 1, 164)
 shape = SubResource("BoxShape3D_68iw1")
 
 [node name="DriveThroughProhibited" type="Node3D" parent="Signs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -223, 0, -2)
 script = ExtResource("47_4843o")
 
 [node name="SignCollision" type="StaticBody3D" parent="Signs/DriveThroughProhibited"]
