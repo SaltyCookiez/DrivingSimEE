@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bol72dmwhr2by"]
+[gd_scene load_steps=5 format=3 uid="uid://bol72dmwhr2by"]
 
 [ext_resource type="Script" uid="uid://dmlbmhlwygd3i" path="res://HUD.gd" id="1_g6jb3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6jb3"]
+bg_color = Color(0, 0, 0, 0.5019608)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fj7yv"]
 
@@ -9,15 +12,31 @@
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_g6jb3")
 
-[node name="SpeedLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="HUDPanel" type="Panel" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_right = 104.0
+offset_bottom = 38.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g6jb3")
+
+[node name="SpeedLabel" type="Label" parent="HUDPanel"]
+layout_mode = 0
+offset_right = 88.0
+offset_bottom = 34.0
+scale = Vector2(1.5, 1.5)
+theme_override_font_sizes/font_size = 30
 text = "\"0 km/h\""
 label_settings = SubResource("LabelSettings_fj7yv")
 
-[node name="GearLabel" type="Label" parent="."]
-offset_top = 19.0
-offset_right = 40.0
-offset_bottom = 42.0
+[node name="GearLabel" type="Label" parent="HUDPanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 35.0
+offset_right = 87.0
+offset_bottom = 64.0
+scale = Vector2(1.5, 1.5)
 text = "\"D\""
 label_settings = SubResource("LabelSettings_tlwt5")
