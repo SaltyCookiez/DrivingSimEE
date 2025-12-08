@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=3 uid="uid://b06n0ewc0cfi3"]
+
+[ext_resource type="Script" uid="uid://ct0kleiag1swq" path="res://Scenes/Props/traffic_light.gd" id="1_snrwg"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fhv0o"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_28lpv"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1quhe"]
+material = SubResource("StandardMaterial3D_28lpv")
+size = Vector3(0.5, 1.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bbfbq"]
+albedo_color = Color(0.40784314, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dyvp3"]
+material = SubResource("StandardMaterial3D_bbfbq")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tprw6"]
+albedo_color = Color(0.43137255, 0.33333334, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cqc77"]
+material = SubResource("StandardMaterial3D_tprw6")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mk8eo"]
+albedo_color = Color(0, 0.37254903, 0.03137255, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ewvn6"]
+material = SubResource("StandardMaterial3D_mk8eo")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_snrwg"]
+height = 5.0
+radius = 0.1
+
+[node name="TrafficLight" type="Node3D"]
+script = ExtResource("1_snrwg")
+
+[node name="Pole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("CylinderMesh_fhv0o")
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("BoxMesh_1quhe")
+
+[node name="RedLamp" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0.2)
+mesh = SubResource("SphereMesh_dyvp3")
+
+[node name="YellowLamp" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.2)
+mesh = SubResource("SphereMesh_cqc77")
+
+[node name="GreenLamp" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0.2)
+mesh = SubResource("SphereMesh_ewvn6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CylinderShape3D_snrwg")

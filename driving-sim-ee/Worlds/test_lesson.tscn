@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=89 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
@@ -48,6 +48,7 @@
 [ext_resource type="Script" uid="uid://dxlb8qkdehmrx" path="res://Scenes/RoadSigns/left_turn_prohibited.gd" id="43_bl7ek"]
 [ext_resource type="Script" uid="uid://caph5e5cevpog" path="res://Scenes/RoadSigns/u_turn_prohibited.gd" id="45_b4mcu"]
 [ext_resource type="Script" uid="uid://dp6xi3bd4byo3" path="res://Scenes/RoadSigns/drive_through_prohibited.gd" id="47_4843o"]
+[ext_resource type="PackedScene" uid="uid://b06n0ewc0cfi3" path="res://Scenes/Props/TrafficLight.tscn" id="49_n57t8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ocbuq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -2247,3 +2248,8 @@ skeleton = NodePath("../../PedestrianWalkSign")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/DriveThroughProhibited/DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 1, 164)
 shape = SubResource("BoxShape3D_0ddj3")
+
+[node name="TrafficLights" type="Node3D" parent="."]
+
+[node name="TrafficLight" parent="TrafficLights" instance=ExtResource("49_n57t8")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 208, 1, 182)
