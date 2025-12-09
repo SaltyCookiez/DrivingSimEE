@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 TrafficStats="*res://Main/TrafficStats.gd"
+TrafficLightClock="*res://Scenes/Props/TrafficLightClock.gd"
+GameState="*res://Main/GameState.gd"
 
 [display]
 

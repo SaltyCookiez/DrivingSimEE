@@ -2253,3 +2253,17 @@ shape = SubResource("BoxShape3D_0ddj3")
 
 [node name="TrafficLight" parent="TrafficLights" instance=ExtResource("49_n57t8")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 208, 1, 182)
+
+[node name="TrafficLight2" parent="TrafficLights" instance=ExtResource("49_n57t8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53, 1, 178)
+inverted = true
+
+[node name="TrafficLight3" parent="TrafficLights" instance=ExtResource("49_n57t8")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 47, 1, 172)
+inverted = true
+
+[node name="TrafficLight4" parent="TrafficLights" instance=ExtResource("49_n57t8")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 47, 1, 178)
+
+[node name="TrafficLight5" parent="TrafficLights" instance=ExtResource("49_n57t8")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 53, 1, 172)
