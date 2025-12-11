@@ -30,7 +30,19 @@ text = "Testing Sandbox"
 
 [node name="BtnTestLesson" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Test Lesson"
+text = "Test Lesson Sandbox"
+
+[node name="BtnLesson1" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 1"
+
+[node name="BtnLesson2" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 2"
+
+[node name="BtnLesson3" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 3"
 
 [node name="BtnQuit" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2

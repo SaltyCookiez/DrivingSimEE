@@ -9,7 +9,8 @@ var mouse_sensitivity: float = 0.1
 var pitch_deg: float = -10.0
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if not get_tree().paused:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$Camera3D.current = true
 	spring_length = 0.0
 

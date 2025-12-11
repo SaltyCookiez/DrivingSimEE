@@ -14,5 +14,6 @@ script = ExtResource("1_amygn")
 visible = false
 
 [node name="HUD" parent="." groups=["HUD"] instance=ExtResource("1_lxy7q")]
+visible = false
 
 [node name="LevelContainer" type="Node3D" parent="."]

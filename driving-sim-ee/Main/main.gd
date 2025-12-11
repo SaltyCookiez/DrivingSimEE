@@ -7,6 +7,21 @@ extends Node
 @onready var pause_menu = $PauseMenu
 
 var current_level: Node = null
+var current_lesson_id: int = 0
+
+func set_lesson(id: int) -> void:
+	current_lesson_id = id
+
+func return_to_menu() -> void:
+	if current_level:
+		current_level.queue_free()
+		current_level = null
+
+	get_tree().paused = false
+	hud.visible = false
+	main_menu.visible = true
+	pause_menu.visible = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _ready():
 	print("Main scene loaded")
@@ -54,10 +69,26 @@ func load_level(path: String):
 	pause_menu.visible = false
 	get_tree().paused = false
 
+func start_lesson(lesson_id: int) -> void:
+	GameState.selected_lesson_id = lesson_id
+	load_level("res://Worlds/test_lesson.tscn")
+
 func _on_BtnSandbox_pressed():
 	load_level("res://Worlds/world.tscn")
 
 func _on_BtnTestLesson_pressed():
+	load_level("res://Worlds/test_lesson.tscn")
+
+func _on_BtnLesson1_pressed():
+	current_lesson_id = 1
+	load_level("res://Worlds/test_lesson.tscn")
+
+func _on_BtnLesson2_pressed():
+	current_lesson_id = 2
+	load_level("res://Worlds/test_lesson.tscn")
+
+func _on_BtnLesson3_pressed():
+	current_lesson_id = 3
 	load_level("res://Worlds/test_lesson.tscn")
 
 func _on_BtnQuit_pressed():

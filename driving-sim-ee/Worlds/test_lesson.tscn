@@ -1,6 +1,7 @@
-[gd_scene load_steps=89 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=105 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
+[ext_resource type="Script" uid="uid://bal5ql3dm8fem" path="res://Worlds/lesson_controller.gd" id="1_gnm3u"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
 [ext_resource type="PackedScene" uid="uid://b54c2mug3ij56" path="res://Scenes/Buildings/building_a.tscn" id="5_57rdg"]
 [ext_resource type="PackedScene" uid="uid://ggdqii2vaa3w" path="res://Scenes/Roads/road_bend_sidewalk.tscn" id="5_qmx82"]
@@ -49,6 +50,51 @@
 [ext_resource type="Script" uid="uid://caph5e5cevpog" path="res://Scenes/RoadSigns/u_turn_prohibited.gd" id="45_b4mcu"]
 [ext_resource type="Script" uid="uid://dp6xi3bd4byo3" path="res://Scenes/RoadSigns/drive_through_prohibited.gd" id="47_4843o"]
 [ext_resource type="PackedScene" uid="uid://b06n0ewc0cfi3" path="res://Scenes/Props/TrafficLight.tscn" id="49_n57t8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gnm3u"]
+size = Vector3(3, 5, 24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bl7ek"]
+size = Vector3(4, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b4mcu"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3xni3"]
+size = Vector3(1, 5, 25.515)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t84a0"]
+size = Vector3(90, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qtdbr"]
+size = Vector3(56, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mhdm3"]
+size = Vector3(5, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_he330"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yj3ut"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uuy4v"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e7ys5"]
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4843o"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4gq26"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gssm4"]
+size = Vector3(1, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_crbbq"]
+size = Vector3(1, 5, 1)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ocbuq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -179,6 +225,222 @@ material = SubResource("StandardMaterial3D_mhdm3")
 [sub_resource type="BoxShape3D" id="BoxShape3D_0ddj3"]
 
 [node name="TestLesson" type="Node3D"]
+
+[node name="LessonUI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Root" type="Control" parent="LessonUI"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="LessonUI/Root"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -200.0
+offset_right = 425.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="LessonUI/Root/Panel"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="LessonUI/Root/Panel/Margin"]
+process_mode = 3
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="LessonUI/Root/Panel/Margin/VBox"]
+process_mode = 3
+layout_mode = 2
+
+[node name="BodyLabel" type="RichTextLabel" parent="LessonUI/Root/Panel/Margin/VBox"]
+process_mode = 3
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="Buttons" type="HBoxContainer" parent="LessonUI/Root/Panel/Margin/VBox"]
+process_mode = 3
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BtnRetry" type="Button" parent="LessonUI/Root/Panel/Margin/VBox/Buttons"]
+process_mode = 3
+layout_mode = 2
+text = "Proovi uuesti"
+
+[node name="BtnMenu" type="Button" parent="LessonUI/Root/Panel/Margin/VBox/Buttons"]
+process_mode = 3
+layout_mode = 2
+text = "Menüü"
+
+[node name="LessonCOntroller" type="Node" parent="."]
+script = ExtResource("1_gnm3u")
+
+[node name="LessonSpawns" type="Node3D" parent="."]
+
+[node name="Lesson1Spawn" type="Marker3D" parent="LessonSpawns"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -74, 1, 188)
+
+[node name="Lesson2Spawn" type="Marker3D" parent="LessonSpawns"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 85, 1, 209)
+
+[node name="Lesson3Spawn" type="Marker3D" parent="LessonSpawns"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204, 1, 187)
+
+[node name="LessonBounds" type="Node3D" parent="."]
+
+[node name="Lesson1Bounds1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson1Bounds1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 1, 180)
+shape = SubResource("BoxShape3D_gnm3u")
+
+[node name="Lesson1WrongWay1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson1WrongWay1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 1, 162.2)
+shape = SubResource("BoxShape3D_bl7ek")
+
+[node name="Lesson1WrongWay2" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson1WrongWay2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.555, 1, 166.2)
+shape = SubResource("BoxShape3D_b4mcu")
+
+[node name="Lesson1WrongWay3" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson1WrongWay3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.555, 1, 164.2)
+shape = SubResource("BoxShape3D_b4mcu")
+
+[node name="Lesson1OnComingWay1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson1OnComingWay1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76, 1, 180.2)
+shape = SubResource("BoxShape3D_3xni3")
+
+[node name="Lesson2OnComingWay1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson2OnComingWay1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 1, 211)
+shape = SubResource("BoxShape3D_t84a0")
+
+[node name="Lesson2Bounds1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson2Bounds1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85, 1, 207)
+shape = SubResource("BoxShape3D_qtdbr")
+
+[node name="Lesson2WrongWay1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson2WrongWay1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.5, 1, 207)
+shape = SubResource("BoxShape3D_mhdm3")
+
+[node name="Lesson3Bounds1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3Bounds1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210.235, 1, 205.03)
+shape = SubResource("BoxShape3D_he330")
+
+[node name="Lesson3Bounds2" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3Bounds2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210.215, 1, 215.32)
+shape = SubResource("BoxShape3D_yj3ut")
+
+[node name="Lesson3Bounds3" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3Bounds3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199.915, 1, 215.32)
+shape = SubResource("BoxShape3D_uuy4v")
+
+[node name="Lesson3Bounds4" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3Bounds4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 199.85, 1, 205)
+shape = SubResource("BoxShape3D_e7ys5")
+
+[node name="Lesson3WrongWay1" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3WrongWay1"]
+shape = SubResource("BoxShape3D_b4mcu")
+
+[node name="Lesson3WrongWay2" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3WrongWay2"]
+shape = SubResource("BoxShape3D_b4mcu")
+
+[node name="Lesson3WrongWay3" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3WrongWay3"]
+shape = SubResource("BoxShape3D_b4mcu")
+
+[node name="Lesson3WrongWay4" type="Area3D" parent="LessonBounds"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson3WrongWay4"]
+shape = SubResource("BoxShape3D_b4mcu")
+
+[node name="LessonGoals" type="Node3D" parent="."]
+
+[node name="Lesson1Correct1" type="Area3D" parent="LessonGoals"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonGoals/Lesson1Correct1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -80, 1, 164.2)
+shape = SubResource("BoxShape3D_4843o")
+
+[node name="Lesson1Correct2" type="Area3D" parent="LessonGoals"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonGoals/Lesson1Correct2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 1, 166.2)
+shape = SubResource("BoxShape3D_4gq26")
+
+[node name="Lesson2Correct1" type="Area3D" parent="LessonGoals"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonGoals/Lesson2Correct1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 1, 209)
+shape = SubResource("BoxShape3D_gssm4")
+
+[node name="Lesson3Correct1" type="Area3D" parent="LessonGoals"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonGoals/Lesson3Correct1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204, 1, 215)
+shape = SubResource("BoxShape3D_crbbq")
+
+[node name="Lesson3Correct2" type="Area3D" parent="LessonGoals"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonGoals/Lesson3Correct2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 210, 1, 211)
+shape = SubResource("BoxShape3D_gssm4")
+
+[node name="Lesson3Correct3" type="Area3D" parent="LessonGoals"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonGoals/Lesson3Correct3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 198, 1, 209)
+shape = SubResource("BoxShape3D_gssm4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_quuls")
@@ -2001,7 +2263,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_epm2q")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 1, 167)
 shape = SubResource("BoxShape3D_j0dfw")
 
-[node name="StopSign" type="Node3D" parent="Signs"]
+[node name="StopSign" type="Node3D" parent="Signs" groups=["stop_sign"]]
 script = ExtResource("33_lfch0")
 
 [node name="SignCollision" type="StaticBody3D" parent="Signs/StopSign"]

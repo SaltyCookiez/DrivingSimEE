@@ -3,7 +3,22 @@ extends Control
 func _ready():
 	$CenterContainer/VBoxContainer/BtnSandbox.pressed.connect(_on_sandbox_pressed)
 	$CenterContainer/VBoxContainer/BtnTestLesson.pressed.connect(_on_test_lesson_pressed)
+	$CenterContainer/VBoxContainer/BtnLesson1.pressed.connect(_on_lesson_1_pressed)
+	$CenterContainer/VBoxContainer/BtnLesson2.pressed.connect(_on_lesson_2_pressed)
+	$CenterContainer/VBoxContainer/BtnLesson3.pressed.connect(_on_lesson_3_pressed)
 	$CenterContainer/VBoxContainer/BtnQuit.pressed.connect(_on_quit_pressed)
+
+func _on_lesson_1_pressed():
+	get_parent().set_lesson(1)
+	get_parent().load_level("res://Worlds/test_lesson.tscn")
+
+func _on_lesson_2_pressed():
+	get_parent().set_lesson(2)
+	get_parent().load_level("res://Worlds/test_lesson.tscn")
+
+func _on_lesson_3_pressed():
+	get_parent().set_lesson(3)
+	get_parent().load_level("res://Worlds/test_lesson.tscn")
 
 func _on_sandbox_pressed():
 	get_parent().load_level("res://Worlds/world.tscn")
