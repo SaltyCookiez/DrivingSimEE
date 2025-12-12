@@ -1,0 +1,48 @@
+keys,en,et
+UI_LANGUAGE,Language,Keel
+UI_ENGLISH,English,Inglise
+UI_ESTONIAN,Estonian,Eesti
+
+UI_START,Start,Alusta
+UI_CONTINUE,Continue,Jätka
+UI_RETRY,Retry,Proovi uuesti
+UI_MENU,Menu,Menüü
+UI_MAIN_MENU,Main menu,Peamenüü
+UI_RESUME,Resume,Jätka
+UI_QUIT,Quit,Välju
+UI_BACK,Back,Tagasi
+
+UI_RULE,Rule,Reegel
+UI_TASK,Task,Ülesanne
+UI_RESULT,Result,Tulemus
+UI_FAIL,Mistake,Viga
+UI_SUCCESS,Well done!,Tubli!
+
+LESSON_START_BUTTON,Start,Alusta
+LESSON_RETRY_BUTTON,Retry,Proovi uuesti
+LESSON_MENU_BUTTON,Menu,Menüü
+
+L1_TITLE,L1: No entry,Ü1: Sissesõidu keeld
+L1_RULE,The “No entry” sign prohibits continuing in that direction.,Märk „Sissesõidu keeld” keelab selles suunas edasi sõitmise.
+L1_TASK,Do not drive into the prohibited road. Choose an allowed direction and reach the green gate.,Ära sõida keelatud teele. Vali lubatud suund ja jõua rohelise väravani.
+L1_FAIL,You drove into a prohibited direction. Returning to start.,Sõitsid keelatud suunas. Sind pannakse tagasi algusesse.
+L1_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L2_TITLE,L2: Right turn prohibited,Ü2: Parempööre keelatud
+L2_RULE,The “Right turn prohibited” sign forbids turning right at that intersection.,Märk „Parempööre keelatud” keelab parempöörde ristmikul, mille ette märk on paigaldatud.
+L2_TASK,Do not turn right. Choose an allowed direction and reach the green gate.,Ristmikul ära pööra paremale. Vali lubatud suund ja jõua rohelise väravani.
+L2_FAIL,You made a prohibited right turn. Returning to start.,Tegid keelatud parempöörde. Sind pannakse tagasi algusesse.
+L2_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L3_TITLE,L3: STOP,L3: STOP
+L3_RULE,The STOP sign requires a complete stop before the stop line (or the intersection edge) and yielding if needed.,STOP-märk kohustab juhti peatuma täielikult enne stoppjoont või ristmiku äärt ning andma teed.
+L3_TASK,Come to a complete stop (0 km/h) for at least 1 second, then continue to the gate.,Peatu täielikult (0 km/h) vähemalt 1 sekund ja alles siis jätka sõitu väravani.
+L3_FAIL,You did not stop correctly at the STOP sign. Returning to start.,Sa ei peatunud STOP-märgi juures korrektselt. Sind pannakse tagasi algusesse.
+L3_STOP_OK,Stopped for %.1f s. Good! Continue driving.,Peatusid %.1f s. Tubli! Jätka sõitu.
+L3_STOP_BAD,Stopped only for %.1f s. You must stop for at least %.1f s.,Peatusid ainult %.1f s. Pead peatuma vähemalt %.1f s.
+L3_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+PAUSE_TITLE,Paused,Pausil
+PAUSE_RESUME,Resume,Jätka
+PAUSE_MAIN_MENU,Main menu,Peamenüü
+PAUSE_QUIT,Quit,Välju
