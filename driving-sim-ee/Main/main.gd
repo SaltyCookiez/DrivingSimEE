@@ -91,5 +91,29 @@ func _on_BtnLesson3_pressed():
 	current_lesson_id = 3
 	load_level("res://Worlds/test_lesson.tscn")
 
+func _on_BtnLesson4_pressed():
+	current_lesson_id = 4
+	load_level("res://Worlds/test_lesson.tscn")
+	
+func _on_BtnLesson5_pressed():
+	current_lesson_id = 5
+	load_level("res://Worlds/test_lesson.tscn")
+	
+func _on_BtnLesson6_pressed():
+	current_lesson_id = 6
+	load_level("res://Worlds/test_lesson.tscn")
+	
+func _on_BtnLesson7_pressed():
+	current_lesson_id = 7
+	load_level("res://Worlds/test_lesson.tscn")
+	
+func _on_BtnLesson8_pressed():
+	current_lesson_id = 8
+	load_level("res://Worlds/test_lesson.tscn")
+	
+func _on_BtnLesson9_pressed():
+	current_lesson_id = 9
+	load_level("res://Worlds/test_lesson.tscn")
+
 func _on_BtnQuit_pressed():
 	get_tree().quit()

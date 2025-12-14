@@ -25,12 +25,13 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="BtnSandbox" type="Button" parent="CenterContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Testing Sandbox"
 
 [node name="BtnTestLesson" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Test Lesson Sandbox"
+text = "Testing Lesson World (Free of road laws)"
 
 [node name="BtnLesson1" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -43,6 +44,30 @@ text = "Lesson 2"
 [node name="BtnLesson3" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Lesson 3"
+
+[node name="BtnLesson4" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 4"
+
+[node name="BtnLesson5" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 5"
+
+[node name="BtnLesson6" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 6"
+
+[node name="BtnLesson7" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 7"
+
+[node name="BtnLesson8" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 8"
+
+[node name="BtnLesson9" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson 9"
 
 [node name="BtnQuit" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2

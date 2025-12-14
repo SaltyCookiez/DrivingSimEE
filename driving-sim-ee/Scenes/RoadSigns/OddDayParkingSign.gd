@@ -55,8 +55,8 @@ func _physics_process(delta: float) -> void:
 		var is_odd_day_now: bool = TrafficStats.is_odd_day()
 
 		if is_odd_day_now:
-			TrafficStats.odd_parking_correct += 1
-			print("NO-PARKING ODD DAY: violation (parked for ", _stopped_time, " sec)")
+			TrafficStats.odd_parking_ok += 1
+			print("ODD DAY PARKING: allowed")
 		else:
 			TrafficStats.odd_parking_wrong += 1
-			print("NO-PARKING: allowed parking today")
+			print("ODD DAY PARKING: violation")

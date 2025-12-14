@@ -1,5 +1,7 @@
 extends Node
 
+var _prev_ok_value: int = 0
+
 var _is_lesson_mode := false
 
 @onready var spawns: Node3D = $"../LessonSpawns"
@@ -39,8 +41,28 @@ const LESSONS := {
 		"body": "[b]Ülesanne[/b]\nSa lähened ristmikule, kus kehtib märk [b]\"Parempööre keelatud\"[/b]. See tähendab, et sa [b]ei tohi[/b] paremale pöörata, isegi kui tee tundub vaba.\n\n[b]Mida teha?[/b]\nSõida [b]otse edasi[/b] või vali [b]lubatud suund[/b] vastavalt teekattemärgistele ja liikluskorraldusele.\n\n[b]Läbikukkumine[/b]\nKui teed keelatud parempöörde, loetakse see liiklusrikkumiseks ja sind pannakse tagasi algusesse."
 	},
 	3: {
-	"title": "Ü3: STOP märk",
-	"body": "[b]Ülesanne[/b]\nSa lähened ristmikule, kus kehtib [b]STOP märk[/b]. STOP-märk tähendab, et sa pead [b]täielikult peatuma[/b] enne stoppjoont või ristmikku.\n\n[b]Mida teha?[/b]\nPeatu täielikult (kiirus peab olema [b]0 km/h[/b]). Veendu, et tee on vaba, ja alles siis jätka sõitu [b]lubatud suunas[/b].\n\n[b]Läbikukkumine[/b]\nKui sa ei peatu STOP-märgi juures täielikult või sõidad ristmikule ilma peatumata, loetakse see liiklusrikkumiseks ja sind pannakse tagasi algusesse."
+		"title": "Ü3: STOP märk",
+		"body": "[b]Ülesanne[/b]\nSa lähened ristmikule, kus kehtib [b]STOP märk[/b]. STOP-märk tähendab, et sa pead [b]täielikult peatuma[/b] enne stoppjoont või ristmikku.\n\n[b]Mida teha?[/b]\nPeatu täielikult (kiirus peab olema [b]0 km/h[/b]). Veendu, et tee on vaba, ja alles siis jätka sõitu [b]lubatud suunas[/b].\n\n[b]Läbikukkumine[/b]\nKui sa ei peatu STOP-märgi juures täielikult või sõidad ristmikule ilma peatumata, loetakse see liiklusrikkumiseks ja sind pannakse tagasi algusesse."
+	},
+	4: {
+		"title": "Ül4: Möödasõit keelatud",
+		"body": "[b]Ülesanne[/b]\nSelles lõigus kehtib märk [b]\"Möödasõit keelatud\"[/b].\n\n[b]Mida teha?[/b]\nSõida [b]oma reas[/b] ja ära soorita möödasõitu.\n\n[b]Läbikukkumine[/b]\nKui üritad möödasõitu / lähed vastassuunavööndisse, kukud läbi ja sind pannakse tagasi algusesse."
+	},
+	5: {
+		"title": "Ül5: U-pööre keelatud",
+		"body": "[b]Ülesanne[/b]\nSelles kohas kehtib märk [b]\"U-pööre keelatud\"[/b].\n\n[b]Mida teha?[/b]\nÄra tee U-pööret. Vali [b]lubatud suund[/b] või sõida edasi.\n\n[b]Läbikukkumine[/b]\nKui teed U-pöörde, kukud läbi ja sind pannakse tagasi algusesse."
+	},
+	6: {
+		"title": "Ül6: Paaritu päeva parkimine",
+		"body": "[b]Ülesanne[/b]\nSee märk näitab, et [b]paaritu kuupäeva päeval[/b] on siin [b]parkimine lubatud[/b] (paaritul päeval).\n\n[b]Kuidas see kontroll töötab?[/b]\nMärk kontrollib ise sinu tegevust oma tsoonis:\n• Kui jääd märgi tsoonis [b]peaaegu seisma[/b] ja püsid nii umbes [b]5 sekundit[/b], loetakse see \"parkimiseks\".\n• Kui sõidad lihtsalt läbi, loetakse see \"mitte parkimiseks\".\n\n[b]Reegel[/b]\n• [b]Paaritu päev[/b] → parkimine on [b]lubatud[/b]\n• [b]Paaris päev[/b] → parkimine on [b]keelatud[/b]\n\n[b]Lõpetamine[/b]\nÕppetund loetakse lõpetatuks siis, kui märk tuvastab, et tegid [b]õige valiku[/b] (parkisid lubatud päeval või sõitsid korrektselt läbi).\n\n[b]Läbikukkumine[/b]\nKui märk tuvastab, et \"parkisid\" [b]keelatud päeval[/b], saad vea ja sind pannakse tagasi algusesse."
+	},
+	7: {
+		"title": "Ül7: Anna teed ringristmikul",
+		"body": "[b]Ülesanne[/b]\nSa lähened ringristmikule, kus kehtib märk [b]\"Anna teed\"[/b].\n\n[b]Mida teha?[/b]\n[b]Oota[/b], kuni ringristmikul liikuv sõiduk on sinust möödunud.\nPärast seda võid siseneda [b]ainult siis[/b], kui samast suunast ei tule enam teisi sõidukeid.\n\n[b]Sõiduülesanne[/b]\nRingristmikule sisenedes pead tegema [b]esimese parempöörde[/b] (väljumine esimesest väljasõidust).\n\n[b]Läbikukkumine[/b]\nKui ei anna teed või sisened liiga kiiresti, loetakse see rikkumiseks ja sind pannakse tagasi algusesse."
+	},
+	8: {
+		"title": "Ül8: Vasakpööre keelatud",
+		"body": "[b]Ülesanne[/b]\nRistmikul kehtib märk [b]\"Vasakpööre keelatud\"[/b].\n\n[b]Mida teha?[/b]\nÄra pööra vasakule. Sõida [b]otse[/b] või vali [b]lubatud suund[/b].\n\n[b]Läbikukkumine[/b]\nKui teed keelatud vasakpöörde, kukud läbi ja sind pannakse tagasi algusesse."
 	},
 }
 
@@ -50,6 +72,8 @@ func _process(_delta: float) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _ready() -> void:
+	
+	_prev_ok_value = _get_watched_ok_value()
 	
 	$"../LessonUI".process_mode = Node.PROCESS_MODE_ALWAYS
 	$"../LessonUI/Root".process_mode = Node.PROCESS_MODE_ALWAYS
@@ -119,10 +143,18 @@ func _physics_process(_delta: float) -> void:
 	if not _active:
 		return
 
-	var now := _get_watched_wrong_value()
-	if now > _prev_wrong_value:
-		_prev_wrong_value = now
+	# fail check
+	var now_wrong := _get_watched_wrong_value()
+	if now_wrong > _prev_wrong_value:
+		_prev_wrong_value = now_wrong
 		_fail("Viga", _get_fail_message())
+		return
+		
+		# complete check
+	var now_ok := _get_watched_ok_value()
+	if now_ok > _prev_ok_value:
+		_prev_ok_value = now_ok
+		_complete()
 		return
 
 func _select_lesson_areas(id: int) -> void:
@@ -264,6 +296,7 @@ func _on_retry_pressed() -> void:
 	_hide_popup()
 	_teleport_car(_start_transform)
 	_prev_wrong_value = _get_watched_wrong_value()
+	_prev_ok_value = _get_watched_ok_value()
 	_active = true
 
 func _on_menu_pressed() -> void:
@@ -281,6 +314,13 @@ func _on_menu_pressed() -> void:
 	else:
 		get_tree().change_scene_to_file("res://Main.tscn")
 
+func _get_watched_ok_value() -> int:
+	match lesson_id:
+		6:
+			return int(TrafficStats.odd_parking_ok)
+		_:
+			return 0
+
 func _get_watched_wrong_value() -> int:
 	match lesson_id:
 		1:
@@ -289,6 +329,16 @@ func _get_watched_wrong_value() -> int:
 			return int(TrafficStats.right_turn_wrong)
 		3:
 			return int(TrafficStats.stop_wrong)
+		4:
+			return int(TrafficStats.overtake_wrong)
+		5:
+			return int(TrafficStats.u_turn_wrong)
+		6:
+			return int(TrafficStats.odd_parking_wrong)
+		7:
+			return int(TrafficStats.give_way_wrong)
+		8:
+			return int(TrafficStats.left_turn_wrong)
 		_:
 			# fallback
 			return int(TrafficStats.overtake_wrong) \
@@ -303,4 +353,9 @@ func _get_fail_message() -> String:
 		1: return "Sa rikkusid \"Läbisõit keelatud\" märki. Sind pannakse tagasi algusesse."
 		2: return "Sa tegid keelatud parempöörde. Sind pannakse tagasi algusesse."
 		3: return "Sa ei peatunud STOP märgi juures korrektselt. Sind pannakse tagasi algusesse."
+		4: return "Sa tegid keelatud möödasõidu. Sind pannakse tagasi algusesse."
+		5: return "Sa tegid keelatud U-pöörde. Sind pannakse tagasi algusesse."
+		6: return "Sa rikkusid parkimisreeglit. Sind pannakse tagasi algusesse."
+		7: return "Sa ei järginud \"Anna teed\" nõuet. Sind pannakse tagasi algusesse."
+		8: return "Sa tegid keelatud vasakpöörde. Sind pannakse tagasi algusesse."
 		_: return "Sa tegid liiklusvea. Sind pannakse tagasi algusesse."
