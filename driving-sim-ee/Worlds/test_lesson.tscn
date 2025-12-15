@@ -1,7 +1,8 @@
-[gd_scene load_steps=128 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=130 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="Script" uid="uid://bal5ql3dm8fem" path="res://Worlds/lesson_controller.gd" id="1_gnm3u"]
+[ext_resource type="Script" uid="uid://btot6sg1iujgv" path="res://Worlds/RedLightFailZone.gd" id="2_bl7ek"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
 [ext_resource type="PackedScene" uid="uid://b54c2mug3ij56" path="res://Scenes/Buildings/building_a.tscn" id="5_57rdg"]
 [ext_resource type="PackedScene" uid="uid://ggdqii2vaa3w" path="res://Scenes/Roads/road_bend_sidewalk.tscn" id="5_qmx82"]
@@ -149,6 +150,9 @@ size = Vector3(1, 5, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ssd5a"]
 size = Vector3(1, 5, 25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tmn7r"]
+size = Vector3(0.1, 5, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4843o"]
 size = Vector3(1, 5, 1)
@@ -665,6 +669,13 @@ shape = SubResource("BoxShape3D_630pf")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson9Bounds1"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 55.5, 1, 172.22)
 shape = SubResource("BoxShape3D_ssd5a")
+
+[node name="Lesson9RedLightFail" type="Area3D" parent="LessonBounds"]
+script = ExtResource("2_bl7ek")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LessonBounds/Lesson9RedLightFail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.5, 1, 175.22)
+shape = SubResource("BoxShape3D_tmn7r")
 
 [node name="LessonGoals" type="Node3D" parent="."]
 
@@ -2819,5 +2830,5 @@ inverted = true
 [node name="TrafficLight4" parent="TrafficLights" instance=ExtResource("49_n57t8")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 47, 1, 178)
 
-[node name="TrafficLight5" parent="TrafficLights" instance=ExtResource("49_n57t8")]
+[node name="TrafficLight5" parent="TrafficLights" groups=["traffic_light"] instance=ExtResource("49_n57t8")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 53, 1, 172)

@@ -98,3 +98,9 @@ func _make_lamp_materials_unique() -> void:
 	if m: yellow_lamp.set_surface_override_material(0, m.duplicate(true))
 	m = green_lamp.get_active_material(0)
 	if m: green_lamp.set_surface_override_material(0, m.duplicate(true))
+
+func is_green() -> bool:
+	return _phase == Phase.GREEN
+
+func get_phase() -> int:
+	return int(_phase)

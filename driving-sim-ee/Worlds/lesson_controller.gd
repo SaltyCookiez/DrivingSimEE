@@ -64,6 +64,10 @@ const LESSONS := {
 		"title": "Ül8: Vasakpööre keelatud",
 		"body": "[b]Ülesanne[/b]\nRistmikul kehtib märk [b]\"Vasakpööre keelatud\"[/b].\n\n[b]Mida teha?[/b]\nÄra pööra vasakule. Sõida [b]otse[/b] või vali [b]lubatud suund[/b].\n\n[b]Läbikukkumine[/b]\nKui teed keelatud vasakpöörde, kukud läbi ja sind pannakse tagasi algusesse."
 	},
+	9: {
+		"title": "Ül9: Foorituli",
+		"body": "[b]Ülesanne[/b]\nSõida ristmikule ja järgi foorituld.\n\n[b]Mida teha?[/b]\nPeatu valgusfoori juures ja [b]oota kuni tuli läheb roheliseks[/b].\nKui tuli on roheline, sõida [b]otse edasi[/b].\n\n[b]Lõpetamine[/b]\nÕppetund loetakse lõpetatuks siis, kui sõidad [b]rohelise tulega otse edasi[/b] ja jõuad märgitud alasse.\n\n[b]Läbikukkumine[/b]\nKui ületad ristmiku, kui tuli ei ole roheline, kukud läbi ja sind pannakse tagasi algusesse."
+	},
 }
 
 func _process(_delta: float) -> void:
