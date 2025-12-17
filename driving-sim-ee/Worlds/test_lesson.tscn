@@ -1,8 +1,11 @@
-[gd_scene load_steps=130 format=3 uid="uid://bqjn0q0785ek3"]
+[gd_scene load_steps=136 format=3 uid="uid://bqjn0q0785ek3"]
 
 [ext_resource type="PackedScene" uid="uid://crf1ck44yata7" path="res://Scenes/Roads/road_straight.tscn" id="1_3nxw8"]
 [ext_resource type="Script" uid="uid://bal5ql3dm8fem" path="res://Worlds/lesson_controller.gd" id="1_gnm3u"]
+[ext_resource type="Script" uid="uid://b0wq6nxouxqj4" path="res://Worlds/traffic_follower.gd" id="2_4gq26"]
+[ext_resource type="PackedScene" uid="uid://bqwvxmp6t1rgl" path="res://vehicle_body_3dTraffic.tscn" id="2_b4mcu"]
 [ext_resource type="Script" uid="uid://btot6sg1iujgv" path="res://Worlds/RedLightFailZone.gd" id="2_bl7ek"]
+[ext_resource type="Script" uid="uid://cf1o52tlfol1t" path="res://vehicle_body_3d_traffic.gd" id="3_4843o"]
 [ext_resource type="PackedScene" uid="uid://bju2jvk3ytl0b" path="res://Scenes/Roads/road_crossroad_path.tscn" id="3_kohqq"]
 [ext_resource type="PackedScene" uid="uid://b54c2mug3ij56" path="res://Scenes/Buildings/building_a.tscn" id="5_57rdg"]
 [ext_resource type="PackedScene" uid="uid://ggdqii2vaa3w" path="res://Scenes/Roads/road_bend_sidewalk.tscn" id="5_qmx82"]
@@ -41,6 +44,7 @@
 [ext_resource type="Script" uid="uid://darigncn6f5f3" path="res://Scenes/RoadSigns/pedestrian_walk_sign.gd" id="37_xfira"]
 [ext_resource type="Texture2D" uid="uid://bxpv1gbba5no2" path="res://Scenes/RoadSigns/352.png" id="38_c2qnq"]
 [ext_resource type="PackedScene" uid="uid://ljgrtp2iu864" path="res://Scenes/Roads/road_intersection.tscn" id="38_crbbq"]
+[ext_resource type="Script" uid="uid://c45k3l6jd6wjw" path="res://Worlds/SignFallOnHit.gd" id="38_gssm4"]
 [ext_resource type="Texture2D" uid="uid://dkqwejwm2gavw" path="res://Scenes/RoadSigns/332.png" id="39_m8hff"]
 [ext_resource type="Script" uid="uid://ctfkmxe0ndrnx" path="res://Scenes/RoadSigns/overtake_prohibited.gd" id="39_n57t8"]
 [ext_resource type="Texture2D" uid="uid://dl0mua1p5kdd7" path="res://Scenes/RoadSigns/333.png" id="40_vgn83"]
@@ -51,6 +55,13 @@
 [ext_resource type="Script" uid="uid://caph5e5cevpog" path="res://Scenes/RoadSigns/u_turn_prohibited.gd" id="45_b4mcu"]
 [ext_resource type="Script" uid="uid://dp6xi3bd4byo3" path="res://Scenes/RoadSigns/drive_through_prohibited.gd" id="47_4843o"]
 [ext_resource type="PackedScene" uid="uid://b06n0ewc0cfi3" path="res://Scenes/Props/TrafficLight.tscn" id="49_n57t8"]
+
+[sub_resource type="Curve3D" id="Curve3D_4gq26"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 130.492, 0.53, 210.083, 0, 0, 0, 0, 0, 0, 131.903, 0.53, 213.4, 0, 0, 0, 0, 0, 0, 134.974, 0.53, 214.651, 0, 0, 0, 0, 0, 0, 138.194, 0.53, 213.316, 0, 0, 0, 0, 0, 0, 139.341, 0.53, 209.874, 0, 0, 0, 0, 0, 0, 137.999, 0.53, 206.836, 0, 0, 0, 0, 0, 0, 135.071, 0.53, 205.714, 0, 0, 0, 0, 0, 0, 131.599, 0.53, 207.03, 0, 0, 0, 0, 0, 0, 130.492, 0.53, 210.083),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 9
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gnm3u"]
 size = Vector3(3, 5, 24)
@@ -208,6 +219,9 @@ albedo_texture = ExtResource("32_lfch0")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_epm2q"]
 size = Vector3(1.7, 4, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dvo4j"]
+size = Vector3(1, 3, 1)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_b0nfo"]
 height = 2.5
@@ -371,6 +385,19 @@ text = "Menüü"
 
 [node name="LessonCOntroller" type="Node" parent="."]
 script = ExtResource("1_gnm3u")
+
+[node name="ScriptedCarMovement" type="Node3D" parent="."]
+
+[node name="RoundaboutPath" type="Path3D" parent="ScriptedCarMovement"]
+curve = SubResource("Curve3D_4gq26")
+
+[node name="TrafficFollower" type="PathFollow3D" parent="ScriptedCarMovement/RoundaboutPath"]
+transform = Transform3D(-0.920192, 0, -0.39143446, 0, 0.99998504, 0, 0.3914339, 0, -0.9201933, 130.492, 0.53, 210.083)
+script = ExtResource("2_4gq26")
+
+[node name="TrafficCar" parent="ScriptedCarMovement/RoundaboutPath/TrafficFollower" groups=["traffic_car"] instance=ExtResource("2_b4mcu")]
+transform = Transform3D(-0.90107703, 0, 0.43365914, 0, 1, 0, -0.43365914, 0, -0.90107703, 0, 0, 0)
+script = ExtResource("3_4843o")
 
 [node name="LessonSpawns" type="Node3D" parent="."]
 
@@ -2542,6 +2569,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_6a8qa")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 143, 1, 209.2)
 shape = SubResource("BoxShape3D_epm2q")
 
+[node name="HitArea" type="Area3D" parent="Signs/GiveWaySign"]
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/GiveWaySign/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 141, 2, 207)
+shape = SubResource("BoxShape3D_dvo4j")
+
 [node name="OddDayParkingSign" type="Node3D" parent="Signs"]
 script = ExtResource("32_7h8tf")
 
@@ -2565,6 +2599,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_epm2q")
 [node name="Collision" type="CollisionShape3D" parent="Signs/OddDayParkingSign/DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 1, 167)
 shape = SubResource("BoxShape3D_j0dfw")
+
+[node name="HitArea" type="Area3D" parent="Signs/OddDayParkingSign"]
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/OddDayParkingSign/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 139, 1.7, 164)
+shape = SubResource("BoxShape3D_dvo4j")
 
 [node name="StopSign" type="Node3D" parent="Signs" groups=["stop_sign"]]
 script = ExtResource("33_lfch0")
@@ -2590,6 +2631,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_b0nfo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 204, 1, 204)
 shape = SubResource("BoxShape3D_7h8tf")
 
+[node name="HitArea" type="Area3D" parent="Signs/StopSign"]
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/StopSign/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 202, 1.7, 206)
+shape = SubResource("BoxShape3D_dvo4j")
+
 [node name="PedestrianWalkSign" type="Node3D" parent="Signs"]
 script = ExtResource("37_xfira")
 
@@ -2613,6 +2661,13 @@ mesh = SubResource("PlaneMesh_gnm3u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 178)
 shape = SubResource("BoxShape3D_57rdg")
 
+[node name="HitArea" type="Area3D" parent="Signs/PedestrianWalkSign"]
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 178)
+shape = SubResource("BoxShape3D_dvo4j")
+
 [node name="PedestrianWalkSign2" type="Node3D" parent="Signs"]
 script = ExtResource("37_xfira")
 
@@ -2635,6 +2690,13 @@ mesh = SubResource("PlaneMesh_gnm3u")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign2/DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 172)
 shape = SubResource("BoxShape3D_57rdg")
+
+[node name="HitArea" type="Area3D" parent="Signs/PedestrianWalkSign2"]
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign2/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1.7, 172)
+shape = SubResource("BoxShape3D_dvo4j")
 
 [node name="PedestrianWalkSign3" type="Node3D" parent="Signs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -6)
@@ -2660,6 +2722,14 @@ mesh = SubResource("PlaneMesh_gnm3u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 178)
 shape = SubResource("BoxShape3D_57rdg")
 
+[node name="HitArea" type="Area3D" parent="Signs/PedestrianWalkSign3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign3/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1.7, 172)
+shape = SubResource("BoxShape3D_dvo4j")
+
 [node name="PedestrianWalkSign4" type="Node3D" parent="Signs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 6)
 script = ExtResource("37_xfira")
@@ -2683,6 +2753,14 @@ mesh = SubResource("PlaneMesh_gnm3u")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign4/DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, 172)
 shape = SubResource("BoxShape3D_57rdg")
+
+[node name="HitArea" type="Area3D" parent="Signs/PedestrianWalkSign4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/PedestrianWalkSign4/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 1.7, 178)
+shape = SubResource("BoxShape3D_dvo4j")
 
 [node name="OvertakeProhibited" type="Node3D" parent="Signs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -161, 0, -125)
@@ -2710,6 +2788,14 @@ skeleton = NodePath("../../PedestrianWalkSign")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 143, 1, 164)
 shape = SubResource("BoxShape3D_c2qnq")
 
+[node name="HitArea" type="Area3D" parent="Signs/OvertakeProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 161, 0, 125)
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/OvertakeProhibited/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 2, 38.95)
+shape = SubResource("BoxShape3D_dvo4j")
+
 [node name="RightTurnProhibited" type="Node3D" parent="Signs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87, 0, 43)
 script = ExtResource("41_gnm3u")
@@ -2735,6 +2821,14 @@ skeleton = NodePath("../../PedestrianWalkSign")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/RightTurnProhibited/DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 145, 1, 164)
 shape = SubResource("BoxShape3D_m8hff")
+
+[node name="HitArea" type="Area3D" parent="Signs/RightTurnProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87, 0, -43)
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/RightTurnProhibited/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 1.7, 207)
+shape = SubResource("BoxShape3D_dvo4j")
 
 [node name="LeftTurnProhibited" type="Node3D" parent="Signs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70, 0, 8)
@@ -2762,6 +2856,14 @@ skeleton = NodePath("../../PedestrianWalkSign")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 147, 1, 164)
 shape = SubResource("BoxShape3D_vgn83")
 
+[node name="HitArea" type="Area3D" parent="Signs/LeftTurnProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70, 0, -8)
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/LeftTurnProhibited/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77, 1.7, 172)
+shape = SubResource("BoxShape3D_dvo4j")
+
 [node name="UTurnProhibited" type="Node3D" parent="Signs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -142)
 script = ExtResource("45_b4mcu")
@@ -2788,6 +2890,14 @@ skeleton = NodePath("../../PedestrianWalkSign")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 149, 1, 164)
 shape = SubResource("BoxShape3D_68iw1")
 
+[node name="HitArea" type="Area3D" parent="Signs/UTurnProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, 142)
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/UTurnProhibited/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 127, 1.7, 22)
+shape = SubResource("BoxShape3D_dvo4j")
+
 [node name="DriveThroughProhibited" type="Node3D" parent="Signs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -223, 0, -2)
 script = ExtResource("47_4843o")
@@ -2813,6 +2923,14 @@ skeleton = NodePath("../../PedestrianWalkSign")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/DriveThroughProhibited/DetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 151, 1, 164)
 shape = SubResource("BoxShape3D_0ddj3")
+
+[node name="HitArea" type="Area3D" parent="Signs/DriveThroughProhibited"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 223, 0, 2)
+script = ExtResource("38_gssm4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Signs/DriveThroughProhibited/HitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 1.7, 162)
+shape = SubResource("BoxShape3D_dvo4j")
 
 [node name="TrafficLights" type="Node3D" parent="."]
 

@@ -70,14 +70,26 @@ const LESSONS := {
 	},
 }
 
+# helper
+func _setup_lesson7_collision_fail() -> void:
+	if lesson_id != 7:
+		return
+	if car == null:
+		push_error("LessonController: car is null, cannot setup lesson 7 collision fail.")
+		return
+
+	car.contact_monitor = true
+	car.max_contacts_reported = 8
+
+	if not car.body_entered.is_connected(_on_car_body_entered):
+		car.body_entered.connect(_on_car_body_entered)
+
 func _process(_delta: float) -> void:
 	if _popup_open:
 		if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _ready() -> void:
-	
-	_prev_ok_value = _get_watched_ok_value()
 	
 	$"../LessonUI".process_mode = Node.PROCESS_MODE_ALWAYS
 	$"../LessonUI/Root".process_mode = Node.PROCESS_MODE_ALWAYS
@@ -108,18 +120,25 @@ func _ready() -> void:
 	lesson_id = int(main.current_lesson_id)
 	if lesson_id <= 0:
 		return
-
+	
+	_prev_ok_value = _get_watched_ok_value()
 	_is_lesson_mode = lesson_id > 0
 
 	if lesson_id == 3:
 		_connect_stop_signs()
 
+	_setup_lesson7_collision_fail()
 	_select_lesson_areas(lesson_id)
 	_apply_spawn(lesson_id)
 
 	_prev_wrong_value = _get_watched_wrong_value()
 	_active = true
 
+	if "contact_monitor" in car:
+		car.contact_monitor = true
+	if "max_contacts_reported" in car:
+		car.max_contacts_reported = 8
+		
 	_show_intro_popup()
 
 func _on_stop_evaluated(correct: bool, stopped_time: float) -> void:
@@ -241,6 +260,19 @@ func _on_goal_body_entered(body: Node3D) -> void:
 	if body == null or not body.is_in_group("car"):
 		return
 	_complete()
+
+func _on_car_body_entered(other: Node) -> void:
+	if not _active:
+		return
+
+	if lesson_id != 7:
+		return
+
+	if other == null:
+		return
+
+	if other.is_in_group("traffic_car"):
+		_fail("Viga", "Sa põrkasid kokku ringristmikul liikuva sõidukiga. Proovi uuesti.")
 
 func _fail(title: String, msg: String) -> void:
 	_intro_popup_open = false
