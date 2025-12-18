@@ -1,5 +1,11 @@
 extends VehicleBody3D
 
+@export var enable_downforce := true
+@export var enable_antiroll := true
+@export var enable_engine_drag := true
+
+var throttle: float = 0.0
+
 var speed_kmh: float = 0.0
 
 var hud = null
@@ -61,32 +67,56 @@ func get_compression(wheel: VehicleWheel3D) -> float:
 		1.0
 	)
 
-func _apply_anti_roll_bar():
-	var k = 12000.0  # anti-roll force strength
+# helper
+func _apply_roll_damping(_delta: float) -> void:
+	if linear_velocity.length() < 0.3:
+		return
 
-	var wfl = $wheel_front_left
-	var wfr = $wheel_front_right
-	var wrl = $wheel_back_left
-	var wrr = $wheel_back_right
+	var forward: Vector3 = -global_transform.basis.z.normalized()
+	var roll_rate: float = angular_velocity.dot(forward)
 
-	var c_fl = get_compression(wfl)
-	var c_fr = get_compression(wfr)
-	var c_rl = get_compression(wrl)
-	var c_rr = get_compression(wrr)
+	var roll_damp: float = 4.0
+	apply_torque(-forward * roll_rate * roll_damp)
 
-	# Front axle anti-roll force
-	var anti_roll_front = (c_fl - c_fr) * k
-	if wfl.is_in_contact():
-		apply_force(-global_transform.basis.y * anti_roll_front, wfl.global_transform.origin - global_transform.origin)
-	if wfr.is_in_contact():
-		apply_force(global_transform.basis.y * anti_roll_front, wfr.global_transform.origin - global_transform.origin)
+func _apply_anti_roll_bar() -> void:
+	var k_front := 2000.0
+	var k_rear  := 1600.0
+	var deadzone := 0.02
+	var max_force := 1500.0
 
-	# Rear axle anti-roll force
-	var anti_roll_rear = (c_rl - c_rr) * k
-	if wrl.is_in_contact():
-		apply_force(-global_transform.basis.y * anti_roll_rear, wrl.global_transform.origin - global_transform.origin)
-	if wrr.is_in_contact():
-		apply_force(global_transform.basis.y * anti_roll_rear, wrr.global_transform.origin - global_transform.origin)
+	var wfl: VehicleWheel3D = $wheel_front_left
+	var wfr: VehicleWheel3D = $wheel_front_right
+	var wrl: VehicleWheel3D = $wheel_back_left
+	var wrr: VehicleWheel3D = $wheel_back_right
+
+	var c_fl := get_compression(wfl)
+	var c_fr := get_compression(wfr)
+	var c_rl := get_compression(wrl)
+	var c_rr := get_compression(wrr)
+
+	var up := global_transform.basis.y
+
+	# Front
+	if wfl.is_in_contact() and wfr.is_in_contact():
+		var diff_f := c_fl - c_fr
+		if abs(diff_f) < deadzone:
+			diff_f = 0.0
+
+		var force_f: float = clamp(diff_f * k_front, -max_force, max_force)
+
+		apply_force(-up * force_f, wfl.global_position - global_position)
+		apply_force( up * force_f, wfr.global_position - global_position)
+
+	# Rear
+	if wrl.is_in_contact() and wrr.is_in_contact():
+		var diff_r := c_rl - c_rr
+		if abs(diff_r) < deadzone:
+			diff_r = 0.0
+
+		var force_r: float = clamp(diff_r * k_rear, -max_force, max_force)
+
+		apply_force(-up * force_r, wrl.global_position - global_position)
+		apply_force( up * force_r, wrr.global_position - global_position)
 
 func set_pov(enable: bool) -> void:
 	is_pov = enable
@@ -94,6 +124,12 @@ func set_pov(enable: bool) -> void:
 	cam_pov.current = enable
 
 func _physics_process(delta):
+	
+	var raw_throttle := Input.get_action_strength("Gas")
+	if raw_throttle < 0.05:
+		raw_throttle = 0.0
+	throttle = move_toward(throttle, raw_throttle, 6.0 * delta) # smooth in/out
+	acceleration_input = throttle
 	
 	speed_kmh = linear_velocity.length() * 3.6
 	var speed = speed_kmh
@@ -128,9 +164,12 @@ func _physics_process(delta):
 	var wheel_rpm_right = abs($wheel_back_right.get_rpm())
 	var wheel_rpm = (wheel_rpm_left + wheel_rpm_right) / 2.0
 
-	# Aerodynamic downforce (single, modest)
-	var downforce_factor = 3.0
-	apply_central_force(-transform.basis.y * linear_velocity.length() * downforce_factor)
+	# Aerodynamic downforce
+	var v: float = linear_velocity.length()
+
+	if v > 5.0:
+		var df: float = min(v * v * 0.3, 200.0)
+		apply_central_force(-global_transform.basis.y * df)
 
 	# Engine and transmission
 	_update_engine_rpm(wheel_rpm, delta)
@@ -178,17 +217,20 @@ func _physics_process(delta):
 		brake = pedal_brake
 
 	# Steering
-	steering = lerp(
-		steering,
-		steering_dir * steering_sensitivity * steering_limit,
-		steering_lerp_speed * delta
-	)
+	var target_steer: float = steering_dir * steering_sensitivity * steering_limit
+	var max_steer_change: float = 2.5 * delta
+	steering = move_toward(steering, target_steer, max_steer_change)
 
 	# Engine drag
-	_apply_engine_drag(delta)
+	if enable_engine_drag:
+		_apply_engine_drag(delta)
 
 	# Anti-roll bar
-	_apply_anti_roll_bar()
+	if enable_antiroll:
+		_apply_anti_roll_bar()
+	
+	# Anti-roll damping
+	_apply_roll_damping(delta)
 
 	# Debug info
 	#if debug_enabled:
@@ -233,7 +275,7 @@ func _calculate_engine_force(torque: float) -> float:
 	var total_ratio = gear_ratio * final_drive_ratio
 	var wheel_torque = torque * total_ratio
 	# Tuned for realistic acceleration and top speed
-	return wheel_torque / 13.0
+	return wheel_torque / 5.0
 
 func _update_engine_rpm(wheel_rpm: float, delta: float):
 	var rpm_scale = 10.0       # controls gear speed span
