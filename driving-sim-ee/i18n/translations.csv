@@ -1,7 +1,19 @@
-keys,en,et
+key,en,et
 UI_LANGUAGE,Language,Keel
 UI_ENGLISH,English,Inglise
 UI_ESTONIAN,Estonian,Eesti
+
+UI_SANDBOX,Sandbox,Liivakast
+UI_TEST_LESSON,Testing Lesson World (Free of road laws),Testtund (ilma liiklusseadusteta)
+UI_LESSON_1,Lesson 1,Õppetund 1
+UI_LESSON_2,Lesson 2,Õppetund 2
+UI_LESSON_3,Lesson 3,Õppetund 3
+UI_LESSON_4,Lesson 4,Õppetund 4
+UI_LESSON_5,Lesson 5,Õppetund 5
+UI_LESSON_6,Lesson 6,Õppetund 6
+UI_LESSON_7,Lesson 7,Õppetund 7
+UI_LESSON_8,Lesson 8,Õppetund 8
+UI_LESSON_9,Lesson 9,Õppetund 9
 
 UI_START,Start,Alusta
 UI_CONTINUE,Continue,Jätka
@@ -17,6 +29,9 @@ UI_TASK,Task,Ülesanne
 UI_RESULT,Result,Tulemus
 UI_FAIL,Mistake,Viga
 UI_SUCCESS,Well done!,Tubli!
+
+HUD_KMH,km/h,km/h
+HUD_GEAR,Gear,Käik
 
 LESSON_START_BUTTON,Start,Alusta
 LESSON_RETRY_BUTTON,Retry,Proovi uuesti
@@ -41,6 +56,45 @@ L3_FAIL,You did not stop correctly at the STOP sign. Returning to start.,Sa ei p
 L3_STOP_OK,Stopped for %.1f s. Good! Continue driving.,Peatusid %.1f s. Tubli! Jätka sõitu.
 L3_STOP_BAD,Stopped only for %.1f s. You must stop for at least %.1f s.,Peatusid ainult %.1f s. Pead peatuma vähemalt %.1f s.
 L3_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L4_TITLE,L4: Overtaking prohibited,Ü4: Möödasõit keelatud
+L4_RULE,Overtaking is prohibited on this road section.,Selles lõigus on möödasõit keelatud.
+L4_TASK,Stay in your lane and do not overtake.,Sõida oma reas ja ära soorita möödasõitu.
+L4_FAIL,You overtook another vehicle. Returning to start.,Tegid keelatud möödasõidu. Sind pannakse tagasi algusesse.
+L4_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L5_TITLE,L5: U-turn prohibited,Ü5: U-pööre keelatud
+L5_RULE,U-turns are prohibited at this location.,Selles kohas on U-pööre keelatud.
+L5_TASK,Do not make a U-turn. Continue in an allowed direction.,Ära tee U-pööret. Jätka lubatud suunas.
+L5_FAIL,You made a prohibited U-turn. Returning to start.,Tegid keelatud U-pöörde. Sind pannakse tagasi algusesse.
+L5_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L6_TITLE,L6: Odd-day parking,Ü6: Paaritu päeva parkimine
+L6_RULE,Parking is allowed only on odd days.,Parkimine on lubatud ainult paaritutel päevadel.
+L6_TASK,Park only if the current day is odd.,Pargi ainult siis, kui kuupäev on paaritu.
+L6_FAIL,You violated the parking rule. Returning to start.,Rikkusid parkimisreeglit. Sind pannakse tagasi algusesse.
+L6_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L7_TITLE,L7: Give way at roundabout,Ü7: Anna teed ringristmikul
+L7_RULE,You must give way to vehicles already on the roundabout.,Ringristmikul pead andma teed seal liikuvatele sõidukitele.
+L7_TASK,Wait until vehicles pass, then enter and take the first exit.,Oota kuni sõidukid mööduvad, seejärel sisene ja välju esimesest väljasõidust.
+L7_FAIL,You failed to give way. Returning to start.,Ei andnud teed. Sind pannakse tagasi algusesse.
+L7_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L8_TITLE,L8: Left turn prohibited,Ü8: Vasakpööre keelatud
+L8_RULE,Left turns are prohibited at this intersection.,Selles ristmikus on vasakpööre keelatud.
+L8_TASK,Do not turn left. Continue straight or choose an allowed direction.,Ära pööra vasakule. Sõida otse või vali lubatud suund.
+L8_FAIL,You made a prohibited left turn. Returning to start.,Tegid keelatud vasakpöörde. Sind pannakse tagasi algusesse.
+L8_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+L9_TITLE,L9: Traffic light,Ü9: Foorituli
+L9_RULE,You must obey the traffic light.,Pea kinni fooritule nõuetest.
+L9_TASK,Wait for green light, then drive straight.,Oota rohelist tuld ja sõida otse.
+L9_FAIL,You crossed the intersection on a red light.,Ületasid ristmiku punase tulega.
+L9_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
+
+LESSON_FAIL_ZONE,You entered a prohibited zone. Try again.,Sõitsid keelatud või valesse tsooni. Proovi uuesti.
+LESSON_FAIL_COLLISION,You collided with another vehicle. Try again.,Sa põrkasid kokku teise sõidukiga. Proovi uuesti.
 
 PAUSE_TITLE,Paused,Pausil
 PAUSE_RESUME,Resume,Jätka

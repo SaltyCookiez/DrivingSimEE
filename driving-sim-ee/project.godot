@@ -98,4 +98,4 @@ gear_neutral={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://i18n/et.translation", "res://i18n/en.translation")
+locale/translations=PackedStringArray("res://i18n/translations.en.translation", "res://i18n/translations.et.translation")

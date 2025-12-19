@@ -24,6 +24,15 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelLanguage" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="OptionLanguage" type="OptionButton" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
 [node name="BtnSandbox" type="Button" parent="CenterContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
