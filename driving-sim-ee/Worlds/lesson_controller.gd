@@ -3,6 +3,9 @@ extends Node
 var _prev_ok_value: int = 0
 var _is_lesson_mode := false
 
+var _prev_tree_paused: bool = false
+var _prev_mouse_mode: int = Input.MOUSE_MODE_CAPTURED
+
 @onready var spawns: Node3D = $"../LessonSpawns"
 @onready var bounds_root: Node = $"../LessonBounds"
 @onready var goals_root: Node = $"../LessonGoals"
@@ -71,7 +74,7 @@ func _ready() -> void:
 	$"../LessonUI/Root/Panel".process_mode = Node.PROCESS_MODE_ALWAYS
 
 	ui_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	$"../LessonUI/Root".mouse_filter = Control.MOUSE_FILTER_STOP
+	$"../LessonUI/Root".mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	ui_panel.visible = false
 
@@ -294,15 +297,18 @@ func _show_intro_popup() -> void:
 
 
 func _show_popup(title: String, msg: String, show_retry: bool) -> void:
+	if _popup_open:
+		return
+
 	_popup_open = true
+
+	_prev_tree_paused = get_tree().paused
+	_prev_mouse_mode = Input.get_mouse_mode()
+
 	title_label.text = title
 	body_label.bbcode_text = msg
 	btn_retry.visible = show_retry
 	ui_panel.visible = true
-
-	if _is_lesson_mode:
-		get_tree().paused = true
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 	_set_car_frozen(true)
 
@@ -312,14 +318,9 @@ func _show_popup(title: String, msg: String, show_retry: bool) -> void:
 
 func _hide_popup() -> void:
 	ui_panel.visible = false
-	if _is_lesson_mode:
-		get_tree().paused = false
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	get_tree().paused = false
 	_popup_open = false
 	_set_car_frozen(false)
-
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().paused = false
 
 
 func _on_retry_pressed() -> void:
@@ -329,11 +330,17 @@ func _on_retry_pressed() -> void:
 	_prev_ok_value = _get_watched_ok_value()
 	_active = true
 
+func _apply_gameplay_mouse() -> void:
+	if get_tree().paused:
+		return
+
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_menu_pressed() -> void:
 	if _intro_popup_open:
 		_intro_popup_open = false
 		_hide_popup()
+		call_deferred("_apply_gameplay_mouse")
 		return
 
 	get_tree().paused = false

@@ -16,6 +16,10 @@ extends Control
 @onready var btn_lesson_9: Button = $CenterContainer/VBoxContainer/BtnLesson9
 @onready var btn_quit: Button = $CenterContainer/VBoxContainer/BtnQuit
 
+signal lesson_selected(id: int)
+signal sandbox_selected
+signal test_lesson_selected
+signal quit_selected
 
 func _ready() -> void:
 	btn_sandbox.pressed.connect(_on_sandbox_pressed)
@@ -58,6 +62,12 @@ func _on_language_selected(index: int) -> void:
 
 	_refresh_all_texts()
 
+func _get_main() -> Node:
+	var main := get_tree().root.get_node_or_null("Main")
+	if main == null:
+		push_error("Main node not found at /root/Main.")
+		return null
+	return main
 
 func _refresh_all_texts() -> void:
 	lbl_language.text = tr("UI_LANGUAGE")
@@ -80,48 +90,53 @@ func _refresh_all_texts() -> void:
 	btn_lesson_9.text = tr("UI_LESSON_9")
 	btn_quit.text = tr("UI_QUIT")
 
-
 func _on_lesson_1_pressed():
-	get_parent().set_lesson(1)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 1
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_2_pressed():
-	get_parent().set_lesson(2)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 2
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_3_pressed():
-	get_parent().set_lesson(3)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 3
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_4_pressed():
-	get_parent().set_lesson(4)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 4
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_5_pressed():
-	get_parent().set_lesson(5)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 5
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_6_pressed():
-	get_parent().set_lesson(6)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 6
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_7_pressed():
-	get_parent().set_lesson(7)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 7
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_8_pressed():
-	get_parent().set_lesson(8)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 8
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_lesson_9_pressed():
-	get_parent().set_lesson(9)
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
+	GameState.selected_lesson_id = 9
+	get_tree().change_scene_to_file("res://Main/Main.tscn")
 
 func _on_sandbox_pressed():
-	get_parent().load_level("res://Worlds/world.tscn")
+	var main := _get_main()
+	if main == null: return
+	main.set_lesson(0)
+	main.load_level("res://Worlds/world.tscn")
 
 func _on_test_lesson_pressed():
-	get_parent().load_level("res://Worlds/test_lesson.tscn")
-
+	var main := _get_main()
+	if main == null: return
+	main.set_lesson(0)
+	main.load_level("res://Worlds/test_lesson.tscn")
+	
 func _on_quit_pressed():
 	get_tree().quit()

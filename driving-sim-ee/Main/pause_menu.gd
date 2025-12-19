@@ -4,9 +4,15 @@ extends Control
 @onready var main_menu_button: Button = $Panel/VBoxContainer/BtnMainMenu
 @onready var quit_button: Button = $Panel/VBoxContainer/BtnQuit
 
-func _process(_delta: float) -> void:
-	if visible and Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+func _apply_gameplay_mouse() -> void:
+	if get_tree().paused:
+		return
+
+	var pause_menu := get_tree().root.get_node_or_null("Main/pause_menu")
+	if pause_menu and pause_menu is Control:
+		(pause_menu as Control).visible = false
+
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -28,7 +34,6 @@ func show_menu() -> void:
 	visible = true
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
 	_refresh_texts()
 
 func hide_menu() -> void:

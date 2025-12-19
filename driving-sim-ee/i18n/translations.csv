@@ -44,14 +44,14 @@ L1_FAIL,You drove into a prohibited direction. Returning to start.,Sõitsid keel
 L1_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
 
 L2_TITLE,L2: Right turn prohibited,Ü2: Parempööre keelatud
-L2_RULE,The “Right turn prohibited” sign forbids turning right at that intersection.,Märk „Parempööre keelatud” keelab parempöörde ristmikul, mille ette märk on paigaldatud.
+L2_RULE,The “Right turn prohibited” sign forbids turning right at that intersection.,"Märk „Parempööre keelatud” keelab parempöörde ristmikul, mille ette märk on paigaldatud."
 L2_TASK,Do not turn right. Choose an allowed direction and reach the green gate.,Ristmikul ära pööra paremale. Vali lubatud suund ja jõua rohelise väravani.
 L2_FAIL,You made a prohibited right turn. Returning to start.,Tegid keelatud parempöörde. Sind pannakse tagasi algusesse.
 L2_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
 
 L3_TITLE,L3: STOP,L3: STOP
 L3_RULE,The STOP sign requires a complete stop before the stop line (or the intersection edge) and yielding if needed.,STOP-märk kohustab juhti peatuma täielikult enne stoppjoont või ristmiku äärt ning andma teed.
-L3_TASK,Come to a complete stop (0 km/h) for at least 1 second, then continue to the gate.,Peatu täielikult (0 km/h) vähemalt 1 sekund ja alles siis jätka sõitu väravani.
+L3_TASK,"Come to a complete stop (0 km/h) for at least 1 second, then continue to the gate.",Peatu täielikult (0 km/h) vähemalt 1 sekund ja alles siis jätka sõitu väravani.
 L3_FAIL,You did not stop correctly at the STOP sign. Returning to start.,Sa ei peatunud STOP-märgi juures korrektselt. Sind pannakse tagasi algusesse.
 L3_STOP_OK,Stopped for %.1f s. Good! Continue driving.,Peatusid %.1f s. Tubli! Jätka sõitu.
 L3_STOP_BAD,Stopped only for %.1f s. You must stop for at least %.1f s.,Peatusid ainult %.1f s. Pead peatuma vähemalt %.1f s.
@@ -71,13 +71,13 @@ L5_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüss
 
 L6_TITLE,L6: Odd-day parking,Ü6: Paaritu päeva parkimine
 L6_RULE,Parking is allowed only on odd days.,Parkimine on lubatud ainult paaritutel päevadel.
-L6_TASK,Park only if the current day is odd.,Pargi ainult siis, kui kuupäev on paaritu.
+L6_TASK,Park only if the current day is odd.,"Pargi ainult siis, kui kuupäev on paaritu."
 L6_FAIL,You violated the parking rule. Returning to start.,Rikkusid parkimisreeglit. Sind pannakse tagasi algusesse.
 L6_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
 
 L7_TITLE,L7: Give way at roundabout,Ü7: Anna teed ringristmikul
 L7_RULE,You must give way to vehicles already on the roundabout.,Ringristmikul pead andma teed seal liikuvatele sõidukitele.
-L7_TASK,Wait until vehicles pass, then enter and take the first exit.,Oota kuni sõidukid mööduvad, seejärel sisene ja välju esimesest väljasõidust.
+L7_TASK,"Wait until vehicles pass, then enter and take the first exit.","Oota kuni sõidukid mööduvad, seejärel sisene ja välju esimesest väljasõidust."
 L7_FAIL,You failed to give way. Returning to start.,Ei andnud teed. Sind pannakse tagasi algusesse.
 L7_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
 
@@ -89,7 +89,7 @@ L8_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüss
 
 L9_TITLE,L9: Traffic light,Ü9: Foorituli
 L9_RULE,You must obey the traffic light.,Pea kinni fooritule nõuetest.
-L9_TASK,Wait for green light, then drive straight.,Oota rohelist tuld ja sõida otse.
+L9_TASK,"Wait for green light, then drive straight.",Oota rohelist tuld ja sõida otse.
 L9_FAIL,You crossed the intersection on a red light.,Ületasid ristmiku punase tulega.
 L9_SUCCESS,Lesson complete! Return to menu.,Õppetund lõpetatud! Mine menüüsse.
 

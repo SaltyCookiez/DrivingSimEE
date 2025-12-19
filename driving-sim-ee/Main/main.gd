@@ -1,10 +1,9 @@
 extends Node
 
-@onready var level_container = $LevelContainer
-# @onready var car = $Car
-@onready var hud = $HUD
-@onready var main_menu = $MainMenu
-@onready var pause_menu = $PauseMenu
+@onready var level_container = get_node_or_null("LevelContainer")
+@onready var hud = get_node_or_null("HUD")
+@onready var main_menu = get_node_or_null("MainMenu")
+@onready var pause_menu = get_node_or_null("PauseMenu")
 
 var current_level: Node = null
 var current_lesson_id: int = 0
@@ -23,12 +22,35 @@ func return_to_menu() -> void:
 	pause_menu.visible = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+func _on_menu_lesson_selected(id: int) -> void:
+	current_lesson_id = id
+	load_level("res://Worlds/test_lesson.tscn")
+
+func _on_menu_sandbox_selected() -> void:
+	current_lesson_id = 0
+	load_level("res://Worlds/world.tscn")
+
+func _on_menu_test_lesson_selected() -> void:
+	current_lesson_id = 0
+	load_level("res://Worlds/test_lesson.tscn")
+
+func _on_menu_quit_selected() -> void:
+	get_tree().quit()
+
+func _enter_tree() -> void:
+	print("MAIN.GD ENTER:", name, " path:", get_path(), " scene:", get_tree().current_scene.scene_file_path)
+
 func _ready():
 	print("Main scene loaded")
-	
+
 	hud.visible = false
 	main_menu.visible = true
 	pause_menu.visible = false
+
+	if GameState.selected_lesson_id > 0:
+		current_lesson_id = GameState.selected_lesson_id
+		GameState.selected_lesson_id = 0
+		load_level("res://Worlds/test_lesson.tscn")
 
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause_game"):
@@ -77,42 +99,6 @@ func _on_BtnSandbox_pressed():
 	load_level("res://Worlds/world.tscn")
 
 func _on_BtnTestLesson_pressed():
-	load_level("res://Worlds/test_lesson.tscn")
-
-func _on_BtnLesson1_pressed():
-	current_lesson_id = 1
-	load_level("res://Worlds/test_lesson.tscn")
-
-func _on_BtnLesson2_pressed():
-	current_lesson_id = 2
-	load_level("res://Worlds/test_lesson.tscn")
-
-func _on_BtnLesson3_pressed():
-	current_lesson_id = 3
-	load_level("res://Worlds/test_lesson.tscn")
-
-func _on_BtnLesson4_pressed():
-	current_lesson_id = 4
-	load_level("res://Worlds/test_lesson.tscn")
-	
-func _on_BtnLesson5_pressed():
-	current_lesson_id = 5
-	load_level("res://Worlds/test_lesson.tscn")
-	
-func _on_BtnLesson6_pressed():
-	current_lesson_id = 6
-	load_level("res://Worlds/test_lesson.tscn")
-	
-func _on_BtnLesson7_pressed():
-	current_lesson_id = 7
-	load_level("res://Worlds/test_lesson.tscn")
-	
-func _on_BtnLesson8_pressed():
-	current_lesson_id = 8
-	load_level("res://Worlds/test_lesson.tscn")
-	
-func _on_BtnLesson9_pressed():
-	current_lesson_id = 9
 	load_level("res://Worlds/test_lesson.tscn")
 
 func _on_BtnQuit_pressed():
